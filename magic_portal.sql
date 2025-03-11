@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2025 a las 21:00:49
+-- Tiempo de generación: 11-03-2025 a las 23:25:05
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -38,14 +38,50 @@ CREATE TABLE `cartas` (
   `mana_verde` int(11) NOT NULL DEFAULT 0,
   `mana_negro` int(11) NOT NULL DEFAULT 0,
   `mana_blanco` int(11) NOT NULL DEFAULT 0,
-  `mana_incoloro` int(11) NOT NULL DEFAULT 0,
+  `mana_neutro` int(11) NOT NULL DEFAULT 0,
   `tipo_carta` int(11) NOT NULL,
-  `tipo_criatura` int(11) NOT NULL DEFAULT 0,
+  `tipo_criatura` int(11) DEFAULT NULL,
   `ataque` int(11) DEFAULT NULL,
   `defensa` int(11) DEFAULT NULL,
-  `habilidad` int(11) NOT NULL DEFAULT 0,
+  `habilidad` int(11) DEFAULT NULL,
   `img` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cartas`
+--
+
+INSERT INTO `cartas` (`id`, `nombre`, `mana_rojo`, `mana_azul`, `mana_verde`, `mana_negro`, `mana_blanco`, `mana_neutro`, `tipo_carta`, `tipo_criatura`, `ataque`, `defensa`, `habilidad`, `img`) VALUES
+(4, 'Reminiscencia ancestral', 0, 1, 0, 0, 0, 3, 2, NULL, NULL, NULL, NULL, 'lci-45-ancestral-reminiscence.jpg'),
+(5, 'Reto arcano', 0, 2, 0, 0, 0, 5, 2, NULL, NULL, NULL, NULL, 'afc-14-arcane-endeavor.jpg'),
+(6, 'Atraco arcano', 0, 2, 0, 0, 0, 2, 2, NULL, NULL, NULL, NULL, 'otc-13-arcane-heist.jpg'),
+(7, 'Pericia de Baral', 0, 2, 0, 0, 0, 3, 2, NULL, NULL, NULL, NULL, 'otc-91-baral-s-expertise.jpg'),
+(8, 'Vínculo de Perspicacia', 0, 1, 0, 0, 0, 3, 2, NULL, NULL, NULL, NULL, 'war-43-bond-of-insight.jpg'),
+(9, 'Hechicera de mente extraña', 0, 1, 0, 0, 0, 4, 1, 47, 3, 4, NULL, 'afr-44-aberrant-mind-sorcerer.jpg'),
+(10, 'Ojo aberrante', 0, 1, 0, 0, 0, 2, 1, 162, 5, 5, 8, 'dsk-42-abhorrent-oculus.jpg'),
+(11, 'Draco de la Academia', 0, 1, 0, 0, 0, 2, 1, 67, 2, 2, 8, 'dom-40-academy-drake.jpg'),
+(12, 'Aeromiba', 0, 1, 0, 0, 0, 3, 1, 75, 2, 4, 8, 'mh2-37-aeromoeba.jpg'),
+(13, 'Eterplasma', 0, 2, 0, 0, 0, 2, 1, 119, 1, 1, NULL, 'rvr-34-aetherplasm.jpg'),
+(14, 'Ráfaga de éter', 0, 1, 0, 0, 0, 1, 3, NULL, NULL, NULL, NULL, 'm20-42-aether-gust.jpg'),
+(15, 'Descarga de éter', 0, 1, 0, 0, 0, 1, 3, NULL, NULL, NULL, NULL, 'mh3-50-aether-spike.jpg'),
+(16, 'Confundir', 0, 1, 0, 0, 0, 2, 3, NULL, NULL, NULL, NULL, 'm20-47-befuddle.jpg'),
+(17, 'Perspicacia de la quimista', 0, 1, 0, 0, 0, 3, 3, NULL, NULL, NULL, NULL, 'c20-108-chemister-s-insight.jpg'),
+(18, 'Código de represión', 0, 1, 0, 0, 0, 2, 3, NULL, NULL, NULL, NULL, 'rna-35-code-of-constraint.jpg'),
+(19, 'Aguacero anfibio', 0, 1, 0, 0, 0, 2, 4, NULL, NULL, NULL, 12, 'mh3-51-amphibian-downpour.jpg'),
+(20, 'Forma acuosa', 0, 1, 0, 0, 0, 0, 4, NULL, NULL, NULL, NULL, 'cmr-56-aqueous-form.jpg'),
+(21, 'Amnesia de Ashiok', 0, 2, 0, 0, 0, 2, 4, NULL, NULL, NULL, NULL, 'thb-43-ashiok-s-erasure.jpg'),
+(22, 'Piratería costera', 0, 2, 0, 0, 0, 2, 4, NULL, NULL, NULL, NULL, 'acr-84-coastal-piracy.jpg'),
+(23, 'Encantamiento copia', 0, 1, 0, 0, 0, 2, 4, NULL, NULL, NULL, NULL, 'rvr-39-copy-enchantment.jpg'),
+(24, 'Guantelete de Asesino', 0, 1, 0, 0, 0, 2, 5, NULL, NULL, NULL, NULL, 'acr-12-assassin-gauntlet.jpg'),
+(25, 'Candelero', 0, 1, 0, 0, 0, 0, 5, NULL, NULL, NULL, NULL, 'mkm-43-candlestick.jpg'),
+(26, 'Calavera de cristal, catalejo Isu', 0, 2, 0, 0, 0, 2, 5, NULL, NULL, NULL, NULL, 'acr-15-crystal-skull-isu-spyglass.jpg'),
+(27, 'Puerta rompecabezas de Orazca', 0, 1, 0, 0, 0, 0, 5, NULL, NULL, NULL, NULL, 'lci-68-orazca-puzzle-door.jpg'),
+(28, 'Vara de la absorción', 0, 1, 0, 0, 0, 2, 5, NULL, NULL, NULL, NULL, 'afc-19-rod-of-absorption.jpg'),
+(29, 'Jace, náufrago astuto', 0, 2, 0, 0, 0, 1, 7, NULL, NULL, NULL, NULL, 'xln-60-jace-cunning-castaway.jpg'),
+(30, 'Jace, resucitado', 0, 2, 0, 0, 0, 0, 7, NULL, NULL, NULL, NULL, 'otj-271-jace-reawakened.jpg'),
+(31, 'Jace, mago reflejado', 0, 2, 0, 0, 0, 1, 7, NULL, NULL, NULL, NULL, 'afc-14-arcane-endeavor.jpg'),
+(32, 'Mu Yanling, Viento Celestial', 0, 2, 0, 0, 0, 4, 7, NULL, NULL, NULL, NULL, 'm20-286-mu-yanling-celestial-wind.jpg'),
+(33, 'Teferi, Maestro del Tiempo', 0, 2, 0, 0, 0, 2, 7, NULL, NULL, NULL, NULL, 'm21-75-teferi-master-of-time.jpg');
 
 -- --------------------------------------------------------
 
@@ -418,7 +454,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cartas`
 --
 ALTER TABLE `cartas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `habilidades`
