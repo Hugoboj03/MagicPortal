@@ -10,6 +10,10 @@ Insertar Criatura
 INSERT INTO `cartas`(`nombre`, `mana_azul`, `mana_neutro`, `tipo_carta`, `tipo_criatura`, `ataque`, `defensa`, `img`) 
 VALUES ('Serpiente de las profundidades', 2, 3, 1, 5, 4, 5, 'dsk-42-abhorrent-oculus.jpg');
 
+Insertar Habilidad
+
+INSERT INTO cartas_habilidades (id_carta, id_habilidad) VALUES (11, 8);
+
 
 Insertar Instantaneo
 
@@ -18,12 +22,12 @@ INSERT INTO `cartas`(`nombre`, `mana_azul`, `mana_neutro`, `tipo_carta`, `img`) 
 
 Insertar Encantamiento
 
-INSERT INTO `cartas`(`nombre`, `mana_azul`, `mana_neutro`, `tipo_carta`, `img`) VALUES ('Reminiscencia ancestral', 1, 3, 4,'afc-14-arcane-endeavor.jpg');
+INSERT INTO `cartas`(`nombre`, `mana_azul`, `mana_neutro`, `tipo_carta`, `img`) VALUES ('Reminiscencia ancestral', 1, 3, 4,'mkm-149-airtight-alibi.jpg');
 
 
 Insertar Artefacto
 
-INSERT INTO `cartas`(`nombre`, `mana_azul`, `mana_neutro`, `tipo_carta`, `img`) VALUES ('Reminiscencia ancestral', 1, 3, 5,'afc-14-arcane-endeavor.jpg');
+INSERT INTO `cartas`(`nombre`, `mana_azul`, `mana_neutro`, `tipo_carta`, `img`) VALUES ('Reminiscencia ancestral', 1, 3, 5,'lci-200-malamet-scythe.jpg');
 
 
 Insertar Planeswalker
