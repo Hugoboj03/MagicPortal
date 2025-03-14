@@ -3,12 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-03-2025 a las 22:43:56
+-- Tiempo de generación: 14-03-2025 a las 21:11:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
-
-CREATE DATABASE IF NOT EXISTS `magic_portal`;
-USE `magic_portal`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -199,7 +196,42 @@ INSERT INTO `cartas` (`id`, `nombre`, `mana_rojo`, `mana_azul`, `mana_verde`, `m
 (150, 'Basri Ketr', 0, 0, 0, 0, 2, 1, 7, NULL, NULL, 'm21-7-basri-ket.jpg'),
 (151, 'Elspeth, campeona del sol', 0, 0, 0, 0, 2, 4, 7, NULL, NULL, 'blc-97-elspeth-sun-s-champion.jpg'),
 (152, 'Elspeth, némesis del sol', 0, 0, 0, 0, 2, 2, 7, NULL, NULL, 'thb-14-elspeth-sun-s-nemesis.jpg'),
-(153, 'Gideon Blackblade', 0, 0, 0, 0, 2, 1, 7, NULL, NULL, 'rvr-20-gideon-blackblade.jpg');
+(153, 'Gideon Blackblade', 0, 0, 0, 0, 2, 1, 7, NULL, NULL, 'rvr-20-gideon-blackblade.jpg'),
+(154, 'Sembrador del olvido', 0, 0, 0, 0, 0, 6, 1, 5, 8, 'otc-77-oblivion-sower.jpg'),
+(155, 'Errante vacío', 0, 0, 0, 0, 0, 7, 1, 4, 4, 'mh3-13-nulldrifter.jpg'),
+(156, 'Kozilek, la Realidad Rota', 0, 0, 0, 0, 0, 9, 1, 9, 9, 'mh3-10-kozilek-the-broken-reality.jpg'),
+(157, 'Emrakul, Renovadora de Mundos', 0, 0, 0, 0, 0, 12, 1, 12, 12, 'mh3-6-emrakul-the-world-anew.jpg'),
+(158, 'Descubridora', 0, 0, 0, 0, 0, 3, 1, 1, 1, 'iko-2-farfinder.jpg'),
+(159, 'Ráfaga elemental vacía', 0, 0, 0, 0, 0, 1, 3, NULL, NULL, 'mh3-12-null-elemental-blast.jpg'),
+(160, 'Sarcófago abandonado', 0, 0, 0, 0, 0, 3, 5, NULL, NULL, 'c20-236-abandoned-sarcophagus.jpg'),
+(161, 'Rotor de los eone', 0, 0, 0, 0, 0, 5, 5, NULL, NULL, 'c19-52-aeon-engine.jpg'),
+(162, 'Monumento a Akroma', 0, 0, 0, 0, 0, 7, 5, NULL, NULL, 'tsr-262-akroma-s-memorial.jpg'),
+(163, 'Altar del panteón', 0, 0, 0, 0, 0, 3, 5, NULL, NULL, 'thb-231-altar-of-the-pantheon.jpg'),
+(164, 'Amuleto de custodia', 0, 0, 0, 0, 0, 2, 5, NULL, NULL, 'm19-226-amulet-of-safekeeping.jpg'),
+(165, 'Karn, vástago de Urza', 0, 0, 0, 0, 0, 4, 7, NULL, NULL, 'dom-1-karn-scion-of-urza.jpg'),
+(166, 'Karn, el Gran Creador', 0, 0, 0, 0, 0, 4, 7, NULL, NULL, 'rvr-1-karn-the-great-creator.jpg'),
+(167, 'Ugin, el Inefable', 0, 0, 0, 0, 0, 6, 7, NULL, NULL, 'war-2-ugin-the-ineffable.jpg'),
+(168, 'Ugin, el dragón espíritu', 0, 0, 0, 0, 0, 8, 7, NULL, NULL, 'm21-1-ugin-the-spirit-dragon.jpg'),
+(169, 'Teferi, manipulador del tiempo', 0, 1, 0, 0, 1, 1, 7, NULL, NULL, 'rvr-232-teferi-time-raveler.jpg'),
+(170, 'Égida asimiladora', 0, 1, 0, 0, 1, 1, 5, NULL, NULL, 'otj-192-assimilation-aegis.jpg'),
+(171, 'Amuleto azorio', 0, 1, 0, 0, 1, 0, 5, NULL, NULL, 'gk2-8-azorius-charm.jpg'),
+(172, 'Caballero árbitro azorio', 0, 1, 0, 0, 1, 3, 1, 2, 5, 'rna-154-azorius-knight-arbiter.jpg'),
+(173, 'Brago, el rey eterno', 0, 1, 0, 0, 1, 2, 1, 2, 4, 'khc-82-brago-king-eternal.jpg'),
+(174, 'Sorin, Señor de Innistrad', 0, 0, 0, 1, 1, 2, 7, NULL, NULL, 'lcc-289-sorin-lord-of-innistrad.jpg'),
+(175, 'Efecto sangrado', 0, 0, 0, 1, 1, 2, 4, NULL, NULL, 'acr-51-bleeding-effect.jpg'),
+(176, 'Caballero sin aliento', 0, 0, 0, 1, 1, 1, 1, 2, 2, 'mh2-187-breathless-knight.jpg'),
+(177, 'Ángel del pacto mortal', 0, 0, 0, 2, 1, 3, 1, 5, 5, 'gk2-38-deathpact-angel.jpg'),
+(178, 'Tácticas desesperadas', 0, 0, 0, 1, 1, 0, 3, NULL, NULL, 'iko-183-dire-tactics.jpg'),
+(179, 'Huatli, poetisa guerrera', 1, 0, 0, 0, 1, 3, 7, NULL, NULL, 'xln-224-huatli-warrior-poet.jpg'),
+(180, 'Aya de Alejandría', 1, 0, 0, 0, 1, 2, 1, 4, 3, 'acr-48-aya-of-alexandria.jpg'),
+(181, 'Bruenor Martillo de Batalla', 1, 0, 0, 0, 1, 2, 1, 5, 3, 'afr-219-bruenor-battlehammer.jpg'),
+(182, 'Filoveloz boros', 1, 0, 0, 0, 1, 0, 1, 1, 2, 'gk1-86-boros-swiftblade.jpg'),
+(183, 'Amuleto boros', 1, 0, 0, 0, 1, 0, 3, NULL, NULL, 'otc-216-boros-charm.jpg'),
+(184, 'Ajani, el de Corazón Grande', 0, 0, 1, 0, 1, 2, 7, NULL, NULL, 'war-184-ajani-the-greathearted.jpg'),
+(185, 'Ajani, el de Corazón Grande', 0, 0, 2, 0, 1, 1, 3, NULL, NULL, 'gk1-107-advent-of-the-wurm.jpg'),
+(186, 'Bate de béisbol', 0, 0, 1, 0, 1, 0, 5, NULL, NULL, 'dsk-209-baseball-bat.jpg'),
+(187, 'Llamada del Cónclave', 0, 0, 1, 0, 1, 0, 2, NULL, NULL, 'rvr-169-call-of-the-conclave.jpg'),
+(188, 'Llamado de Eladamri', 0, 0, 1, 0, 1, 0, 3, NULL, NULL, 'mh1-197-eladamri-s-call.jpg');
 
 -- --------------------------------------------------------
 
@@ -243,7 +275,18 @@ INSERT INTO `cartas_habilidades` (`id_carta`, `id_habilidad`) VALUES
 (126, 8),
 (126, 13),
 (128, 7),
-(128, 8);
+(128, 8),
+(155, 8),
+(157, 8),
+(158, 13),
+(172, 13),
+(173, 8),
+(176, 7),
+(176, 8),
+(177, 8),
+(180, 7),
+(180, 9),
+(182, 3);
 
 -- --------------------------------------------------------
 
@@ -292,7 +335,25 @@ INSERT INTO `cartas_tipos_criatura` (`id_carta`, `id_tipo_criatura`) VALUES
 (125, 65),
 (126, 7),
 (127, 97),
-(128, 7);
+(128, 7),
+(154, 73),
+(155, 73),
+(155, 75),
+(156, 73),
+(157, 73),
+(158, 242),
+(172, 33),
+(172, 117),
+(173, 85),
+(176, 33),
+(176, 85),
+(177, 7),
+(180, 18),
+(180, 117),
+(181, 77),
+(181, 104),
+(182, 117),
+(182, 211);
 
 -- --------------------------------------------------------
 
@@ -679,7 +740,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cartas`
 --
 ALTER TABLE `cartas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT de la tabla `habilidades`

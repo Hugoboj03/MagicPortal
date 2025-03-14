@@ -10,13 +10,15 @@ Insertar Criatura
 INSERT INTO `cartas`(`nombre`, `mana_azul`, `mana_neutro`, `tipo_carta`, `ataque`, `defensa`, `img`) 
 VALUES ('Serpiente de las profundidades', 2, 3, 1, 4, 5, 'otj-77-ambush-gigapede.jpg');
 
+
+
 Insertar Tipo Criatura
 
 INSERT INTO `cartas_tipos_criatura` (`id_carta`, `id_tipo_criatura`) VALUES (96, 47);
 
 Insertar Habilidad
 
-INSERT INTO cartas_habilidades (id_carta, id_habilidad) VALUES (11, 8);
+INSERT INTO cartas_habilidades (`id_carta`, `id_habilidad`) VALUES (11, 8);
 
 
 Insertar Instantaneo
