@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-03-2025 a las 21:11:15
+-- Tiempo de generación: 15-03-2025 a las 23:21:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,6 +47,9 @@ CREATE TABLE `cartas` (
 --
 
 INSERT INTO `cartas` (`id`, `nombre`, `mana_rojo`, `mana_azul`, `mana_verde`, `mana_negro`, `mana_blanco`, `mana_neutro`, `tipo_carta`, `ataque`, `defensa`, `img`) VALUES
+(1, 'Garth el Tuerto', 1, 1, 1, 1, 1, 0, 1, 5, 5, 'mh2-197-garth-one-eye.jpg'),
+(2, 'Marina Vendrell', 1, 1, 1, 1, 1, 0, 1, 3, 5, 'dsk-221-marina-vendrell.jpg'),
+(3, 'Santuario de todos', 1, 1, 1, 1, 1, 0, 4, NULL, NULL, 'm21-225-sanctum-of-all.jpg'),
 (4, 'Reminiscencia ancestral', 0, 1, 0, 0, 0, 3, 2, NULL, NULL, 'lci-45-ancestral-reminiscence.jpg'),
 (5, 'Reto arcano', 0, 2, 0, 0, 0, 5, 2, NULL, NULL, 'afc-14-arcane-endeavor.jpg'),
 (6, 'Atraco arcano', 0, 2, 0, 0, 0, 2, 2, NULL, NULL, 'otc-13-arcane-heist.jpg'),
@@ -231,7 +234,74 @@ INSERT INTO `cartas` (`id`, `nombre`, `mana_rojo`, `mana_azul`, `mana_verde`, `m
 (185, 'Ajani, el de Corazón Grande', 0, 0, 2, 0, 1, 1, 3, NULL, NULL, 'gk1-107-advent-of-the-wurm.jpg'),
 (186, 'Bate de béisbol', 0, 0, 1, 0, 1, 0, 5, NULL, NULL, 'dsk-209-baseball-bat.jpg'),
 (187, 'Llamada del Cónclave', 0, 0, 1, 0, 1, 0, 2, NULL, NULL, 'rvr-169-call-of-the-conclave.jpg'),
-(188, 'Llamado de Eladamri', 0, 0, 1, 0, 1, 0, 3, NULL, NULL, 'mh1-197-eladamri-s-call.jpg');
+(188, 'Llamado de Eladamri', 0, 0, 1, 0, 1, 0, 3, NULL, NULL, 'mh1-197-eladamri-s-call.jpg'),
+(189, 'Ashiok, inspiración de pesadillas', 0, 1, 0, 1, 0, 3, 7, NULL, NULL, 'thb-208-ashiok-nightmare-muse.jpg'),
+(190, 'Reducir con estilo', 0, 1, 0, 1, 0, 2, 3, NULL, NULL, 'grn-151-artful-takedown.jpg'),
+(191, 'Anowon, el Ladrón de las Ruinas', 0, 1, 0, 1, 0, 2, 1, 2, 4, 'znc-1-anowon-the-ruin-thief.jpg'),
+(192, 'Emboscada de los Auditore', 0, 1, 0, 1, 0, 2, 2, NULL, NULL, 'acr-295-auditore-ambush.jpg'),
+(193, 'Asesino por obligación', 0, 1, 0, 1, 0, 3, 4, NULL, NULL, 'mkm-192-coerced-to-kill.jpg'),
+(194, 'Ral, virrey ízzet', 1, 1, 0, 0, 0, 3, 7, NULL, NULL, 'grn-195-ral-izzet-viceroy.jpg'),
+(195, 'Eris, rugido de la tormenta', 1, 1, 0, 0, 0, 8, 1, 4, 4, 'otc-5-eris-roar-of-the-storm.jpg'),
+(196, 'Kylox, inventor visionario', 1, 1, 0, 0, 0, 5, 1, 4, 4, 'mkm-214-kylox-visionary-inventor.jpg'),
+(197, 'Rayo profético', 1, 1, 0, 0, 0, 3, 3, NULL, NULL, 'c20-227-prophetic-bolt.jpg'),
+(198, 'Niv-Mízzet, parun', 3, 3, 0, 0, 0, 0, 1, 5, 5, 'otc-235-niv-mizzet-parun.jpg'),
+(199, 'Oko, el cabecilla', 0, 1, 1, 0, 0, 2, 7, NULL, NULL, 'otj-223-oko-the-ringleader.jpg'),
+(200, 'Volo, guía de los monstruos', 0, 1, 1, 0, 0, 2, 1, 3, 2, 'afr-238-volo-guide-to-monsters.jpg'),
+(201, 'La suerte hay que buscarla', 0, 1, 1, 0, 0, 3, 2, NULL, NULL, 'otj-218-make-your-own-luck.jpg'),
+(202, 'Encarnación enigmática', 0, 1, 1, 0, 0, 2, 4, NULL, NULL, 'thb-215-enigmatic-incarnation.jpg'),
+(203, 'Neoforma', 0, 1, 1, 0, 0, 0, 2, NULL, NULL, 'war-206-neoform.jpg'),
+(204, 'Angrath, el de las Cadenas Ardientes', 1, 0, 0, 1, 0, 3, 7, NULL, NULL, 'rix-152-angrath-the-flame-chained.jpg'),
+(205, 'Corcel infernal del carnaval', 1, 0, 0, 1, 0, 4, 1, 5, 4, 'gk2-62-carnival-hellsteed.jpg'),
+(206, 'Análisis de salpicaduras de sangre', 1, 0, 0, 1, 0, 0, 4, NULL, NULL, 'mkm-189-blood-spatter-analysis.jpg'),
+(207, 'Júbilo perturbador', 1, 0, 0, 1, 0, 0, 4, NULL, NULL, 'dsk-212-disturbing-mirth.jpg'),
+(208, 'Taladro pavoroso', 1, 0, 0, 1, 0, 0, 2, NULL, NULL, 'rvr-180-dreadbore.jpg'),
+(209, 'Bajas de la guerra', 0, 0, 2, 2, 0, 2, 2, NULL, NULL, 'blc-125-casualties-of-war.jpg'),
+(210, 'Vraska, reina de los golgari', 0, 0, 1, 1, 0, 2, 7, NULL, NULL, 'grn-213-vraska-golgari-queen.jpg'),
+(211, 'Cosecha de las tierras baldías', 0, 0, 1, 1, 0, 3, 2, NULL, NULL, 'otj-194-badlands-revival.jpg'),
+(212, 'Trofeo de la asesina', 0, 0, 1, 1, 0, 0, 3, NULL, NULL, 'acr-95-assassin-s-trophy.jpg'),
+(213, 'Cleopatra, faraona exiliada', 0, 0, 1, 1, 0, 2, 1, 2, 4, 'acr-52-cleopatra-exiled-pharaoh.jpg'),
+(214, 'Wrenn y Seis', 1, 0, 1, 0, 0, 0, 7, NULL, NULL, 'mh1-217-wrenn-and-six.jpg'),
+(215, 'Chamán desgarrador', 2, 0, 2, 0, 0, 0, 1, 5, 5, 'rvr-230-sunder-shaman.jpg'),
+(216, 'Lianas de ceniza', 1, 0, 1, 0, 0, 0, 4, NULL, NULL, 'rvr-171-cindervines.jpg'),
+(217, 'Emboscada de Domri', 1, 0, 1, 0, 0, 0, 2, NULL, NULL, 'war-192-domri-s-ambush.jpg'),
+(218, 'Asalto terrestre', 1, 0, 1, 0, 0, 0, 2, NULL, NULL, 'znc-91-ground-assault.jpg'),
+(219, 'Legión de fragmentados', 1, 1, 1, 1, 1, 0, 1, 7, 7, 'tsr-261-sliver-legion.jpg'),
+(220, 'Tiamat', 1, 1, 1, 1, 1, 2, 1, 7, 7, 'afr-235-tiamat.jpg'),
+(221, 'Omnath, centro de la creación', 1, 1, 1, 0, 1, 0, 1, 4, 4, 'znr-232-omnath-locus-of-creation.jpg'),
+(222, 'Arna Kennerüd, capitana celeste', 0, 1, 0, 1, 1, 2, 1, 4, 4, 'mh3-178-arna-kennerud-skycaptain.jpg'),
+(223, 'Chromium, el Mutable', 0, 1, 0, 1, 1, 4, 1, 7, 7, 'm19-214-chromium-the-mutable.jpg'),
+(224, 'Eriette, la embaucadora', 0, 1, 0, 1, 1, 1, 1, 4, 4, 'otj-202-eriette-the-beguiler.jpg'),
+(225, 'Nevinyrral, tirano de Urborg', 0, 1, 0, 1, 1, 3, 1, 3, 6, 'cmr-287-nevinyrral-urborg-tyrant.jpg'),
+(226, 'Ultimátum inspirado', 3, 2, 0, 0, 2, 0, 2, NULL, NULL, 'iko-191-inspired-ultimatum.jpg'),
+(227, 'Gavi, guardiana del nido', 1, 1, 0, 0, 1, 2, 1, 2, 5, 'c20-7-gavi-nest-warden.jpg'),
+(228, 'Narset de los métodos antiguos', 1, 1, 0, 0, 1, 1, 7, NULL, NULL, 'iko-195-narset-of-the-ancient-way.jpg'),
+(229, 'Sevinne, el Cronoclismo', 1, 1, 0, 0, 1, 2, 1, 2, 2, 'c19-49-sevinne-the-chronoclasm.jpg'),
+(230, 'Arthur, caballero de las caléndulas', 1, 1, 0, 0, 1, 2, 1, 4, 5, 'blc-5-arthur-marigold-knight.jpg'),
+(231, 'Ámareth, la Refulgente', 0, 1, 1, 0, 1, 3, 1, 6, 6, 'cmr-266-amareth-the-lustrous.jpg'),
+(232, 'Galea, Colmaesperanzas', 0, 1, 1, 0, 1, 1, 1, 4, 4, 'afc-1-galea-kindler-of-hope.jpg'),
+(233, 'Tamiyo, exploradora de campo', 0, 1, 1, 0, 1, 1, 7, NULL, NULL, 'iko-195-narset-of-the-ancient-way.jpg'),
+(234, 'Kellan se une al equipo', 0, 1, 1, 0, 1, 0, 4, NULL, NULL, 'otj-212-kellan-joins-up.jpg'),
+(235, 'Sr. Jacinto', 0, 1, 1, 0, 1, 2, 1, 3, 5, 'blc-6-mr-foxglove.jpg'),
+(236, 'Nicol Bolas, Dios Dragón', 1, 1, 0, 3, 0, 0, 7, NULL, NULL, 'rvr-205-nicol-bolas-dragon-god.jpg'),
+(237, 'Obeka, fraccionadora de segundos', 1, 1, 0, 1, 0, 1, 1, 2, 5, 'otj-222-obeka-splitter-of-seconds.jpg'),
+(238, 'Obeka, cronologista bruta', 1, 1, 0, 1, 0, 1, 1, 3, 4, 'cmr-289-obeka-brute-chronologist.jpg'),
+(239, 'Garza Zol, reina de la peste', 1, 1, 0, 1, 0, 4, 1, 5, 5, 'ps11-171-garza-zol-plague-queen.jpg'),
+(240, 'Geyadrone Dihada', 1, 1, 0, 1, 0, 1, 7, NULL, NULL, 'mh2-199-geyadrone-dihada.jpg'),
+(241, 'Nido de titanes', 0, 1, 1, 1, 0, 1, 4, NULL, NULL, 'iko-212-titans-nest.jpg'),
+(242, 'Ultimátum emergentes', 0, 2, 3, 2, 0, 0, 2, NULL, NULL, 'iko-185-emergent-ultimatum.jpg'),
+(243, 'Félix Cincobotas', 0, 1, 1, 1, 0, 2, 1, 5, 4, 'otc-6-felix-five-boots.jpg'),
+(244, 'Rayami, el Primero de los Caídos', 0, 1, 1, 1, 0, 1, 1, 5, 4, 'c19-48-rayami-first-of-the-fallen.jpg'),
+(245, 'Volrath, el Robaformas', 0, 1, 1, 1, 0, 2, 1, 7, 5, 'c19-51-volrath-the-shapestealer.jpg'),
+(246, 'Sortilegio temur', 1, 1, 1, 0, 0, 0, 3, NULL, NULL, 'c20-230-temur-charm.jpg'),
+(247, 'Supremacía temur', 1, 1, 1, 0, 0, 0, 4, NULL, NULL, 'tsr-387-temur-ascendancy.jpg'),
+(248, 'Ultimátum de génesis', 2, 3, 2, 0, 0, 0, 2, NULL, NULL, 'iko-189-genesis-ultimatum.jpg'),
+(249, 'Canción de la creación', 1, 1, 1, 0, 0, 1, 4, NULL, NULL, 'iko-210-song-of-creation.jpg'),
+(250, 'Omnath, centro de la Turbulencia', 1, 1, 1, 0, 0, 1, 1, 3, 3, 'm20-216-omnath-locus-of-the-roil.jpg'),
+(251, 'Yurlok de la azotada abrasadora', 1, 0, 1, 1, 0, 1, 1, 4, 4, 'cmr-293-yurlok-of-scorch-thrash.jpg'),
+(252, 'Winter, guía misantrópico', 1, 0, 1, 1, 0, 1, 1, 3, 4, 'dsk-240-winter-misanthropic-guide.jpg'),
+(253, 'Ultimátum violento', 3, 0, 2, 2, 0, 0, 2, NULL, NULL, 'ps11-181-violent-ultimatum.jpg'),
+(254, 'Vaevictis Asmadi, el Nefasto', 1, 0, 1, 1, 0, 3, 1, 6, 6, 'm19-225-vaevictis-asmadi-the-dire.jpg'),
+(255, 'Prossh, incursor celestial de Kher', 1, 0, 1, 1, 0, 3, 1, 5, 5, 'cmr-530-prossh-skyraider-of-kher.jpg');
 
 -- --------------------------------------------------------
 
@@ -286,7 +356,31 @@ INSERT INTO `cartas_habilidades` (`id_carta`, `id_habilidad`) VALUES
 (177, 8),
 (180, 7),
 (180, 9),
-(182, 3);
+(182, 3),
+(195, 8),
+(195, 15),
+(196, 5),
+(196, 9),
+(205, 4),
+(205, 5),
+(220, 8),
+(222, 7),
+(222, 8),
+(223, 8),
+(223, 12),
+(224, 7),
+(225, 10),
+(230, 5),
+(231, 8),
+(232, 12),
+(235, 13),
+(237, 9),
+(239, 5),
+(239, 8),
+(243, 9),
+(251, 13),
+(254, 8),
+(255, 8);
 
 -- --------------------------------------------------------
 
@@ -304,6 +398,9 @@ CREATE TABLE `cartas_tipos_criatura` (
 --
 
 INSERT INTO `cartas_tipos_criatura` (`id_carta`, `id_tipo_criatura`) VALUES
+(1, 107),
+(1, 117),
+(2, 117),
 (9, 47),
 (9, 76),
 (9, 117),
@@ -353,7 +450,58 @@ INSERT INTO `cartas_tipos_criatura` (`id_carta`, `id_tipo_criatura`) VALUES
 (181, 77),
 (181, 104),
 (182, 117),
-(182, 211);
+(182, 211),
+(191, 31),
+(191, 231),
+(195, 75),
+(196, 17),
+(196, 234),
+(198, 68),
+(198, 107),
+(200, 107),
+(200, 117),
+(205, 34),
+(205, 176),
+(213, 117),
+(215, 47),
+(215, 97),
+(219, 94),
+(220, 59),
+(220, 68),
+(220, 75),
+(222, 33),
+(222, 117),
+(223, 6),
+(223, 68),
+(224, 117),
+(225, 107),
+(225, 241),
+(227, 47),
+(227, 117),
+(229, 107),
+(229, 117),
+(230, 33),
+(230, 192),
+(231, 68),
+(232, 33),
+(232, 76),
+(235, 31),
+(235, 242),
+(237, 161),
+(238, 107),
+(238, 161),
+(239, 231),
+(243, 31),
+(243, 49),
+(244, 231),
+(245, 145),
+(250, 75),
+(251, 47),
+(251, 234),
+(252, 117),
+(254, 6),
+(254, 68),
+(255, 68);
 
 -- --------------------------------------------------------
 
@@ -384,7 +532,8 @@ INSERT INTO `habilidades` (`id`, `habilidad`) VALUES
 (11, 'Defensor'),
 (12, 'Destello'),
 (13, 'Vigilancia'),
-(14, 'Indestructible');
+(14, 'Indestructible'),
+(15, 'Destreza');
 
 -- --------------------------------------------------------
 
@@ -740,13 +889,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cartas`
 --
 ALTER TABLE `cartas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 
 --
 -- AUTO_INCREMENT de la tabla `habilidades`
 --
 ALTER TABLE `habilidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_carta`
