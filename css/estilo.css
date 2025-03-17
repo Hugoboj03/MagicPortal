@@ -1,0 +1,21 @@
+body{
+    background-color: bisque;
+}
+
+
+.contenedor-cartas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    gap: 10px; /* Espacio entre cartas */
+    text-align: center;
+}
+.carta {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+.carta img {
+    width: 270px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+}
