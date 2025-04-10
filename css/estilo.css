@@ -1,5 +1,157 @@
 body{
+    background: linear-gradient(#d7bf7d, #f5eabc);
+    
+    /**
     background-color: bisque;
+    */
+    
+    
+}
+
+.form-container {
+     /* Aumenté el ancho para dar espacio */
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #8b6f47;
+}
+
+.form-container h1 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+form {
+    /**
+    display: flex;
+    justify-content: center;
+    */
+    
+}
+
+.primer-contenedor-form{
+    display: flex;
+    justify-content: space-around;
+     /* Espacio entre elementos */
+    
+}
+
+.search-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.search-group label,
+.mana-group h3,
+.legendary-group h3, 
+.tipo-carta h3 {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #444;
+    font-size: 14px;
+}
+
+.search-group input {
+    padding: 8px;
+    border: 1px solid #8b6f47;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #fffef0;
+    transition: border-color 0.3s;
+}
+
+.search-group input:focus {
+    border-color: #d4a017;
+    outline: none;
+}
+
+.mana-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.manas {
+    display: flex;
+    gap: 10px;
+}
+
+.mana-option {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.mana-option input[type="checkbox"] {
+    accent-color: #d4a017;
+}
+
+.mana-option label {
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.legendary-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-options {
+    display: flex;
+    gap: 10px;
+}
+
+.radio-options div {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.radio-options input[type="radio"] {
+    accent-color: #d4a017;
+}
+
+.radio-options label {
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background: linear-gradient(to right, #d4a017, #8b6f47);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+    align-self: center; /* Centra el botón verticalmente */
+}
+
+select{
+    padding: 8px;
+    border: none; /* Quitamos el borde básico */
+    border-radius: 5px;
+    font-size: 14px;
+    background: linear-gradient(to right, #d4a017, #8b6f47); /* Degradado igual al botón */
+    color: rgb(0, 0, 0); /* Texto blanco como el botón */
+    min-width: 150px;
+    cursor: pointer;
+    
+    
+    
+}
+
+button[type="submit"]:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #e0b02e, #a17f4f);
 }
 
 
@@ -16,6 +168,6 @@ body{
     background: #f9f9f9;
 }
 .carta img {
-    width: 270px; /* Ajusta el tamaño según sea necesario */
+    width: 270px;
     height: auto;
 }
