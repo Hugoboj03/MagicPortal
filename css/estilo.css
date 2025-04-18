@@ -50,7 +50,9 @@ form {
 .search-group label,
 .mana-group h3,
 .legendary-group h3, 
-.tipo-carta h3 {
+.tipo-carta h3,
+.tipo-criatura1 h3,
+.tipo-criatura2 h3 {
     font-weight: bold;
     margin-bottom: 5px;
     color: #444;

@@ -1,6 +1,9 @@
 <?php
 session_start();
 include("../conexion.php");
+include '../modelo/funcionesConsultas.php';
+
+
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario'])) {
@@ -8,34 +11,138 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
+
+
+
+
+// 1. Obtener los tipos de carta 
+$listaTipoCartas = "SELECT tipo FROM tipo_carta";
+$consultaTipoCartas = $conexion->prepare($listaTipoCartas);
+$consultaTipoCartas->execute();
+$consultaTipoCartas->bind_result($tipoCarta);
+
+// Guardar los tipos en un array para usar más tarde en el HTML
+$tipos = [];
+while ($consultaTipoCartas->fetch()) {
+    $tipos[] = $tipoCarta;
+}
+$consultaTipoCartas->close();
+
+// 2. Obtener los tipos de carta 
+$listaTipoCriaturas = "SELECT tipo_criatura_nombre FROM tipo_criatura";
+$consultaTipoCriaturas = $conexion->prepare($listaTipoCriaturas);
+$consultaTipoCriaturas->execute();
+$consultaTipoCriaturas->bind_result($tipoCriatura);
+
+// Guardar los tipos en un array para usar más tarde en el HTML
+$tiposCriatura = [];
+while ($consultaTipoCriaturas->fetch()) {
+    $tiposCriatura[] = $tipoCriatura;
+}
+$consultaTipoCriaturas->close();
+
 // Cartas por pagina
 $cartasPorPagina = 32;
 
-// Obtener el número de página actual desde GET
-$paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-if ($paginaActual < 1) {
-    $paginaActual = 1;
+$nombreCarta = "";
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombreCarta = isset($_POST['nombreCarta']) ? trim($_POST['nombreCarta']) : '';
+    $mana = isset($_POST['mana']) && is_array($_POST['mana']) ? $_POST['mana'] : [];
+    $legendaria = isset($_POST['legendaria']) ? $_POST['legendaria'] : '';
+    $habilidades = isset($_POST['habilidad']) && is_array($_POST['habilidad']) ? $_POST['habilidad'] : [];
+    $tipoCarta = isset($_POST['tipoCarta']) ? trim($_POST['tipoCarta']) : '';
+    $tipoCriatura1 = isset($_POST['TipoCriatura1']) ? trim($_POST['TipoCriatura1']) : '';
+    $tipoCriatura2 = isset($_POST['TipoCriatura2']) ? trim($_POST['TipoCriatura2']) : '';
+
+    $_SESSION['filtros'] = [
+        'nombreCarta' => $nombreCarta,
+        'mana' => $mana,
+        'legendaria' => $legendaria,
+        'habilidades' => $habilidades,
+        'tipoCarta' => $tipoCarta,
+        'tipoCriatura1' => $tipoCriatura1,
+        'tipoCriatura2' => $tipoCriatura2,
+    ];
+
+    $consultaF = obtenerCartasFiltradas($nombreCarta, $legendaria, $mana, $habilidades, $tipoCarta, $tipoCriatura1, $tipoCriatura2);
+
+    $totalCartasFiltradas = count($consultaF);
+
+    $totalPaginas = ceil($totalCartasFiltradas / $cartasPorPagina);
+
+    if (isset($_GET['pagina'])) {
+        $paginaActual = $_GET['pagina'];
+    } else {
+        $paginaActual = 1;
+    }
+
+    $indiceInicio = ($paginaActual - 1) * $cartasPorPagina;
+    $indiceFin = $indiceInicio + $cartasPorPagina - 1;
+
+    $consultaFiltrada = array_slice($consultaF, $indiceInicio, $cartasPorPagina);
+} else {
+
+    if (isset($_SESSION['filtros'])) {
+
+        $filtros = $_SESSION['filtros'];
+        $nombreCarta = $filtros['nombreCarta'] ?? '';
+        $legendaria = $filtros['legendaria'] ?? '';
+        $mana = $filtros['mana'] ?? '';
+        $habilidad = $filtros['habilidades'] ?? '';
+        $tipoCarta = $filtros['tipoCarta'] ?? '';
+        $tipoCriatura1 = $filtros['tipoCriatura1'] ?? '';
+        $tipoCriatura2 = $filtros['tipoCriatura2'] ?? '';
+        // Si obtienes más filtros en `obtenerCartasFiltradas`, pásalos aquí
+        $consultaF = obtenerCartasFiltradas($nombreCarta, $legendaria, $mana, $habilidad, $tipoCarta, $tipoCriatura1, $tipoCriatura2);
+        $totalCartasFiltradas = count($consultaF);
+        $totalPaginas = ceil($totalCartasFiltradas / $cartasPorPagina);
+
+        $paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        if ($paginaActual < 1) $paginaActual = 1;
+
+        $indiceInicio = ($paginaActual - 1) * $cartasPorPagina;
+        $consultaFiltrada = array_slice($consultaF, $indiceInicio, $cartasPorPagina);
+    } else {
+        // Obtener el número de página actual desde GET
+        $paginaActual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        if ($paginaActual < 1) {
+            $paginaActual = 1;
+        }
+
+        // Calcular el OFFSET
+        $offset = ($paginaActual - 1) * $cartasPorPagina;
+
+
+
+
+        // Obtener el número total de páginas
+        $listaTotal = "SELECT COUNT(*) FROM cartas";
+        $consultaTotal = $conexion->prepare($listaTotal);
+        $consultaTotal->execute();
+        $consultaTotal->bind_result($totalCartas);
+        $consultaTotal->fetch();
+        $consultaTotal->close();
+
+        $totalPaginas = ceil($totalCartas / $cartasPorPagina);
+
+
+        // Preparar la consulta
+        $listaCartas = "SELECT nombre, img FROM cartas LIMIT ? OFFSET ?";
+        $consulta = $conexion->prepare($listaCartas);
+        $consulta->bind_param("ii", $cartasPorPagina, $offset);
+        $consulta->execute();
+        $consulta->bind_result($nombre, $img);
+    }
 }
 
-// Calcular el OFFSET
-$offset = ($paginaActual - 1) * $cartasPorPagina;
 
-// Obtener el número total de páginas
-$listaTotal = "SELECT COUNT(*) FROM cartas";
-$consultaTotal = $conexion->prepare($listaTotal);
-$consultaTotal->execute();
-$consultaTotal->bind_result($totalCartas);
-$consultaTotal->fetch();
-$consultaTotal->close();
 
-$totalPaginas = ceil($totalCartas / $cartasPorPagina);
 
-// Preparar la consulta
-$listaCartas = "SELECT nombre, img FROM cartas LIMIT ? OFFSET ?";
-$consulta = $conexion->prepare($listaCartas);
-$consulta->bind_param("ii", $cartasPorPagina, $offset);
-$consulta->execute();
-$consulta->bind_result($nombre, $img);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -55,12 +162,13 @@ $consulta->bind_result($nombre, $img);
 
     <div class="form-container">
         <h1>Magic Portal</h1>
-        <form method="POST" action="">
+        <!-- ../modelo/funcionesConsultas.php -->
+        <form method="POST" action="pagina_inicio.php">
             <div class="primer-contenedor-form">
                 <!-- Barra de búsqueda -->
                 <div class="search-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Ej: Black Lotus">
+                    <label>Nombre:</label>
+                    <input type="text" id="nombreCarta" name="nombreCarta" placeholder="Ej: Black Lotus" value=<?php echo $nombreCarta ?>>
                 </div>
 
                 <!-- Checkbox para manás -->
@@ -68,28 +176,28 @@ $consulta->bind_result($nombre, $img);
                     <h3>Maná:</h3>
                     <div class="manas">
                         <div class="mana-option">
-                            <input type="checkbox" id="rojo" name="mana[]" value="Rojo">
-                            <label for="rojo">Rojo</label>
+                            <input type="checkbox" id="rojo" name="mana[]" value=rojo <?php echo (isset($_SESSION['filtros']['mana']) && in_array('rojo', $_SESSION['filtros']['mana'])) ? 'checked' : ''; ?>>
+                            <label>Rojo</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="azul" name="mana[]" value="Azul">
-                            <label for="azul">Azul</label>
+                            <input type="checkbox" id="azul" name="mana[]" value=azul <?php echo (isset($_SESSION['filtros']['mana']) && in_array('azul', $_SESSION['filtros']['mana'])) ? 'checked' : ''; ?>>
+                            <label>Azul</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="verde" name="mana[]" value="Verde">
-                            <label for="verde">Verde</label>
+                            <input type="checkbox" id="verde" name="mana[]" value=verde <?php echo (isset($_SESSION['filtros']['mana']) && in_array('verde', $_SESSION['filtros']['mana'])) ? 'checked' : ''; ?>>
+                            <label>Verde</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="negro" name="mana[]" value="Negro">
-                            <label for="negro">Negro</label>
+                            <input type="checkbox" id="negro" name="mana[]" value=negro <?php echo (isset($_SESSION['filtros']['mana']) && in_array('negro', $_SESSION['filtros']['mana'])) ? 'checked' : ''; ?>>
+                            <label>Negro</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="blanco" name="mana[]" value="Blanco">
-                            <label for="blanco">Blanco</label>
+                            <input type="checkbox" id="blanco" name="mana[]" value=blanco <?php echo (isset($_SESSION['filtros']['mana']) && in_array('blanco', $_SESSION['filtros']['mana'])) ? 'checked' : ''; ?>>
+                            <label>Blanco</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="incoloro" name="mana[]" value="Incoloro">
-                            <label for="incoloro">Neutro</label>
+                            <input type="checkbox" id="incoloro" name="mana[]" value=1>
+                            <label>Neutro</label>
                         </div>
                     </div>
                 </div>
@@ -99,16 +207,16 @@ $consulta->bind_result($nombre, $img);
                     <h3>Legendaria:</h3>
                     <div class="radio-options">
                         <div>
-                            <input type="radio" id="si" name="legendaria" value="Sí" required>
-                            <label for="si">Sí</label>
+                            <input type="radio" id="si" name="legendaria" value="1" <?php echo (isset($_SESSION['filtros']['legendaria']) && $_SESSION['filtros']['legendaria'] === '1') ? 'checked' : ''; ?>>
+                            <label>Sí</label>
                         </div>
                         <div>
-                            <input type="radio" id="no" name="legendaria" value="No">
-                            <label for="no">No</label>
+                            <input type="radio" id="no" name="legendaria" value="0" <?php echo (isset($_SESSION['filtros']['legendaria']) && $_SESSION['filtros']['legendaria'] === '0') ? 'checked' : ''; ?>>
+                            <label>No</label>
                         </div>
                         <div>
-                            <input type="radio" id="ambas" name="legendaria" value="Ambas">
-                            <label for="no">Ambas</label>
+                            <input type="radio" id="ambas" name="legendaria" value="" <?php echo (isset($_SESSION['filtros']['legendaria']) && $_SESSION['filtros']['legendaria'] === '') ? 'checked' : ''; ?>>
+                            <label>Ambas</label>
                         </div>
                     </div>
                 </div>
@@ -122,96 +230,108 @@ $consulta->bind_result($nombre, $img);
                     <!-- Primera fila (5 habilidades) -->
                     <div class="manas">
                         <div class="mana-option">
-                            <input type="checkbox" id="alcance" name="habilidad[]" value="Alcance">
-                            <label for="alcance">Alcance</label>
+                            <input type="checkbox" id="alcance" name="habilidad[]" value=1 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(1, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Alcance</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="arrollar" name="habilidad[]" value="Arrollar">
-                            <label for="arrollar">Arrollar</label>
+                            <input type="checkbox" id="arrollar" name="habilidad[]" value=2 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(2, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Arrollar</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="danar_dos_veces" name="habilidad[]" value="Dañar dos Veces">
-                            <label for="danar_dos_veces">Dañar dos Veces</label>
+                            <input type="checkbox" id="danar_dos_veces" name="habilidad[]" value=3 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(3, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Dañar dos Veces</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="danar_primero" name="habilidad[]" value="Dañar Primero">
-                            <label for="danar_primero">Dañar Primero</label>
+                            <input type="checkbox" id="danar_primero" name="habilidad[]" value=4 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(4, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Dañar Primero</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="prisa" name="habilidad[]" value="Prisa">
-                            <label for="prisa">Prisa</label>
+                            <input type="checkbox" id="prisa" name="habilidad[]" value=5 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(5, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Prisa</label>
                         </div>
                     </div>
                     <!-- Segunda fila (5 habilidades) -->
                     <div class="manas">
                         <div class="mana-option">
-                            <input type="checkbox" id="toque_mortal" name="habilidad[]" value="Toque Mortal">
-                            <label for="toque_mortal">Toque Mortal</label>
+                            <input type="checkbox" id="toque_mortal" name="habilidad[]" value=6 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(6, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Toque Mortal</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="vinculo_vital" name="habilidad[]" value="Vinculo Vital">
-                            <label for="vinculo_vital">Vínculo Vital</label>
+                            <input type="checkbox" id="vinculo_vital" name="habilidad[]" value=7 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(7, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Vínculo Vital</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="volar" name="habilidad[]" value="Volar">
-                            <label for="volar">Volar</label>
+                            <input type="checkbox" id="volar" name="habilidad[]" value=8 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(8, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Volar</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="amenaza" name="habilidad[]" value="Amenaza">
-                            <label for="amenaza">Amenaza</label>
+                            <input type="checkbox" id="amenaza" name="habilidad[]" value=9 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(9, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Amenaza</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="antimaleficio" name="habilidad[]" value="Antimalefício">
-                            <label for="antimaleficio">Antimalefício</label>
+                            <input type="checkbox" id="antimaleficio" name="habilidad[]" value=10 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(10, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Antimalefício</label>
                         </div>
                     </div>
                     <!-- Tercera fila (5 habilidades) -->
                     <div class="manas">
                         <div class="mana-option">
-                            <input type="checkbox" id="defensor" name="habilidad[]" value="Defensor">
-                            <label for="defensor">Defensor</label>
+                            <input type="checkbox" id="defensor" name="habilidad[]" value=11 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(11, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Defensor</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="destello" name="habilidad[]" value="Destello">
-                            <label for="destello">Destello</label>
+                            <input type="checkbox" id="destello" name="habilidad[]" value=12 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(12, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Destello</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="vigilancia" name="habilidad[]" value="Vigilancia">
-                            <label for="vigilancia">Vigilancia</label>
+                            <input type="checkbox" id="vigilancia" name="habilidad[]" value=13 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(13, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Vigilancia</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="indestructible" name="habilidad[]" value="Indestructible">
-                            <label for="indestructible">Indestructible</label>
+                            <input type="checkbox" id="indestructible" name="habilidad[]" value=14 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(14, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Indestructible</label>
                         </div>
                         <div class="mana-option">
-                            <input type="checkbox" id="destreza" name="habilidad[]" value="Destreza">
-                            <label for="destreza">Destreza</label>
+                            <input type="checkbox" id="destreza" name="habilidad[]" value=15 <?php echo (isset($_SESSION['filtros']['habilidades']) && in_array(15, $_SESSION['filtros']['habilidades'])) ? 'checked' : ''; ?>>
+                            <label>Destreza</label>
 
                         </div>
                     </div>
                 </div>
                 <div class="tipo-carta">
                     <h3>Seleccione un tipo de carta</h3>
-                    <select name="Sistema operativo favorito">
-                        <option value="Linux">Tipo Carta</option>
-                        <option value="Windows">Windows </option>
-                        <option value="MacOS">Mac OS </option>
+                    <select name="tipoCarta">
+                        <?php
+                        echo "<option value=''>Tipo de carta</option>";
+                        foreach ($tipos as $tipo) {
+                            $selected = (isset($_SESSION['filtros']['tipoCriatura1']) && $_SESSION['filtros']['tipoCarta'] === $tipo) ? 'selected' : '';
+                            echo "<option value='$tipo' $selected>$tipo</option>";
+                        }
+                        ?>
                     </select>
                 </div>
-                <div class="tipo-carta">
-                <h3>Seleccione su primer tipo de criatura</h3>
-                    <select name="Sistema operativo favorito">
-                        <option value="Linux">Tipo Criatura</option>
-                        <option value="Windows">Windows </option>
-                        <option value="MacOS">Mac OS </option>
+                <div class="tipo-criatura1">
+                    <h3>Seleccione su primer tipo de criatura</h3>
+                    <select name="TipoCriatura1">
+                        <?php
+                        echo "<option value=''>Tipo de criatura</option>";
+                        foreach ($tiposCriatura as $tipoCriatura) {
+                            $selected = (isset($_SESSION['filtros']['tipoCriatura1']) && $_SESSION['filtros']['tipoCriatura1'] === $tipoCriatura) ? 'selected' : '';
+                            echo "<option value='$tipoCriatura' $selected>$tipoCriatura</option>";
+                        }
+                        ?>
                     </select>
                 </div>
-                <div class="tipo-carta">
-                <h3>Seleccione segundo tipo de criatura</h3>
-                    <select name="Sistema operativo favorito">
-                        <option value="Linux">Tipo Criatura</option>
-                        <option value="Windows">Windows </option>
-                        <option value="MacOS">Mac OS </option>
+                <div class="tipo-criatura2">
+                    <h3>Seleccione segundo tipo de criatura</h3>
+                    <select name="TipoCriatura2">
+                        <?php
+                        echo "<option value=''>Tipo de criatura</option>";
+                        foreach ($tiposCriatura as $tipoCriatura) {
+                            $selected = (isset($_SESSION['filtros']['tipoCriatura2']) && $_SESSION['filtros']['tipoCriatura2'] === $tipoCriatura) ? 'selected' : '';
+                            echo "<option value='$tipoCriatura' $selected>$tipoCriatura</option>";
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -220,12 +340,25 @@ $consulta->bind_result($nombre, $img);
     </div>
 
     <div class="contenedor-cartas">
-        <?php while ($consulta->fetch()) { ?>
-            <div class="carta">
-                <p><?php echo $nombre; ?></p>
-                <img src="<?php echo "../img/" . $img; ?>" alt="Imagen">
-            </div>
-        <?php } ?>
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_SESSION['filtros'])) {
+            foreach ($consultaFiltrada as $carta): ?>
+                <div class="carta">
+                    <p><?php echo $carta['nombre']; ?></p>
+                    <img src="<?php echo "../img/" . $carta['img']; ?>" alt="Imagen">
+                </div>
+            <?php
+            endforeach;
+        } else {
+            while ($consulta->fetch()): ?>
+                <div class="carta">
+                    <p><?php echo $nombre; ?></p>
+                    <img src="<?php echo "../img/" . $img; ?>" alt="Imagen">
+                </div>
+        <?php
+            endwhile;
+        }
+        ?>
     </div>
 
 
@@ -247,5 +380,9 @@ $consulta->bind_result($nombre, $img);
 </html>
 
 <?php
-$consulta->close();
+
+if (!$_SERVER['REQUEST_METHOD'] === 'POST') {
+    $consulta->close();
+}
+
 ?>
