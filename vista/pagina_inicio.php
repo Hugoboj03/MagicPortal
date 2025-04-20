@@ -11,6 +11,19 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
+if (!isset($_SESSION['filtros'])) {
+    $_SESSION['filtros'] = [
+        'nombreCarta' => '',
+        'mana' => [],
+        'legendaria' => '',
+        'habilidades' => [],
+        'tipoCarta' => '',
+        'tipoCriatura1' => '',
+        'tipoCriatura2' => '',
+        
+    ];
+}
+
 
 
 
@@ -65,6 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'tipoCriatura1' => $tipoCriatura1,
         'tipoCriatura2' => $tipoCriatura2,
     ];
+
+    header("Location: pagina_inicio.php");
+    exit();
 
     $consultaF = obtenerCartasFiltradas($nombreCarta, $legendaria, $mana, $habilidades, $tipoCarta, $tipoCriatura1, $tipoCriatura2);
 
@@ -129,11 +145,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         // Preparar la consulta
-        $listaCartas = "SELECT nombre, img FROM cartas LIMIT ? OFFSET ?";
+        $listaCartas = "SELECT id, nombre, img FROM cartas LIMIT ? OFFSET ?";
         $consulta = $conexion->prepare($listaCartas);
         $consulta->bind_param("ii", $cartasPorPagina, $offset);
         $consulta->execute();
-        $consulta->bind_result($nombre, $img);
+        $consulta->bind_result($idCarta, $nombre, $img);
     }
 }
 
@@ -345,7 +361,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($consultaFiltrada as $carta): ?>
                 <div class="carta">
                     <p><?php echo $carta['nombre']; ?></p>
-                    <img src="<?php echo "../img/" . $carta['img']; ?>" alt="Imagen">
+                    <a href="cartas_en_venta.php?id=<?php echo $carta['id']; ?>">
+                        <img src="<?php echo "../img/" . $carta['img']; ?>" alt="Imagen">
+                    </a>
+
                 </div>
             <?php
             endforeach;
@@ -353,7 +372,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             while ($consulta->fetch()): ?>
                 <div class="carta">
                     <p><?php echo $nombre; ?></p>
-                    <img src="<?php echo "../img/" . $img; ?>" alt="Imagen">
+                    <a href="cartas_en_venta.php?id=<?php echo $idCarta ?>">
+                        <img src="<?php echo "../img/" . $img; ?>" alt="Imagen">
+                    </a>
+
                 </div>
         <?php
             endwhile;

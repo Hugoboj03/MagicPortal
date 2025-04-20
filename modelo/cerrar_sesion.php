@@ -6,6 +6,6 @@ session_unset();
 session_destroy();
 
 // Redirigir al login
-header("Location: ..vista/login.php");
+header("Location: ../vista/login.php");
 exit();
 ?>
