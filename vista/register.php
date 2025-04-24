@@ -11,6 +11,8 @@
     // Mostrar mensajes de error o éxito si existen
     if (isset($_GET['error']) && $_GET['error'] == 'correo_existente') {
         echo '<p style="color: red;">El correo ya está registrado. Usa otro correo.</p>';
+    }elseif(isset($_GET['error']) && $_GET['error'] == 'nombre_existente'){
+        echo '<p style="color: red;">El nombre de usuario ya está registrado. Usa otro nombre.</p>';
     }
     if (isset($_GET['success']) && $_GET['success'] == 'registro') {
         echo '<p style="color: green;">Registro exitoso. Ahora puedes <a href="login.php">iniciar sesión</a>.</p>';

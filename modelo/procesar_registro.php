@@ -28,6 +28,21 @@ if ($stmt->fetch()) {
     header("Location: ../vista/register.php?error=correo_existente");
     exit();
 }
+
+// Verificar si el nombre ya está registrado
+$stmt = $conexion->prepare("SELECT id FROM usuarios WHERE nombre = ?");
+$stmt->bind_param("s", $nombre);
+$stmt->execute();
+$stmt->bind_result($id_usuario);
+
+// Si fetch() devuelve true, el nombre ya existe
+if ($stmt->fetch()) {
+    $stmt->close();
+    mysqli_close($conexion);
+    header("Location: ../vista/register.php?error=nombre_existente");
+    exit();
+}
+
 $stmt->close();
 
 // Encriptar la contraseña

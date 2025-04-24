@@ -1,7 +1,8 @@
 <?php
 session_start();
 include("../conexion.php");
-include '../modelo/funcionesConsultas.php';
+include('../modelo/funcionesConsultas.php');
+include("header.php");
 
 
 
