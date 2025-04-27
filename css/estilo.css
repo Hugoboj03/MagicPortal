@@ -173,3 +173,14 @@ button[type="submit"]:hover {
     width: 270px;
     height: auto;
 }
+
+.sugerencia {
+    padding: 8px;
+    cursor: pointer; /* Mano al pasar el ratón */
+    background-color: white; /* Fondo normal */
+    border-bottom: 1px solid #ddd; /* Líneas separadoras */
+}
+
+.sugerencia:hover {
+    background-color: #f0f0f0; /* Fondo gris clarito al pasar el ratón */
+}

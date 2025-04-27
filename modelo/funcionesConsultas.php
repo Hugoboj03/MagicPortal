@@ -113,4 +113,29 @@ function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades,
 
 }
 
+function buscarCartasPorNombre($nombre){
+
+    global $conexion;
+
+    $nombre = $conexion->real_escape_string($nombre);
+    $sql = "SELECT id, nombre FROM cartas WHERE nombre LIKE '%$nombre%' LIMIT 5";
+    $result = $conexion->query($sql);
+
+    $cartas = [];
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $cartas[] = $row;
+        }
+    }
+
+    return $cartas;
+
+}
+
+function validarPrecio($precio) {
+    // Permite números con hasta 2 decimales, sin letras
+    return preg_match('/^\d{1,6}(\.\d{1,2})?$/', $precio);
+}
+
+
 ?>
