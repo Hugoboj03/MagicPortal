@@ -1,6 +1,11 @@
 <?php
 include("../conexion.php");
 
+/**
+ * No volver a ejecutar este fichero
+ * Se uso para insertar datos a la base de datos.
+ */
+
 $nombres = [
     "Luna Torres", "Mateo Rivas", "Valentina Mora", "Tomás Delgado",
     "Sofía Nieto", "Leo Castillo", "Isabela Cruz", "Gael Herrera",

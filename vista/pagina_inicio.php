@@ -4,6 +4,13 @@ include("../conexion.php");
 include('../modelo/funcionesConsultas.php');
 include("header.php");
 
+/***
+ * Me hize un lio.
+ * El metodo de buscar las cartas en la base de datos al iniciar el programa y al hacer una busqueda filtrada es distinta
+ * con un if y una sesion logre que funcionase.
+ * Quidado al hacer cambios, puede hacer que explote, hay un caso parecido en el caso de recordar en que pagina nos encontramos
+ */
+
 
 
 // Verificar si el usuario ha iniciado sesión

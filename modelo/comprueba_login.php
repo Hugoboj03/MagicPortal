@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Codigo casi reciclado del ejercicio de pelis de Dani
+ */
+
 if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
     $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];

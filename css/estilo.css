@@ -37,7 +37,7 @@ form {
 .primer-contenedor-form{
     display: flex;
     justify-content: space-around;
-     /* Espacio entre elementos */
+    
     
 }
 
@@ -134,20 +134,18 @@ button[type="submit"] {
     font-size: 14px;
     cursor: pointer;
     transition: transform 0.2s, background 0.3s;
-    align-self: center; /* Centra el botón verticalmente */
+    align-self: center; /* Centra el */
 }
 
 select{
     padding: 8px;
-    border: none; /* Quitamos el borde básico */
+    border: none; 
     border-radius: 5px;
     font-size: 14px;
-    background: linear-gradient(to right, #d4a017, #8b6f47); /* Degradado igual al botón */
-    color: rgb(0, 0, 0); /* Texto blanco como el botón */
+    background: linear-gradient(to right, #d4a017, #8b6f47); 
+    color: rgb(0, 0, 0); 
     min-width: 150px;
     cursor: pointer;
-    
-    
     
 }
 
@@ -176,11 +174,11 @@ button[type="submit"]:hover {
 
 .sugerencia {
     padding: 8px;
-    cursor: pointer; /* Mano al pasar el ratón */
-    background-color: white; /* Fondo normal */
-    border-bottom: 1px solid #ddd; /* Líneas separadoras */
+    cursor: pointer; 
+    background-color: white; 
+    border-bottom: 1px solid #ddd; 
 }
 
 .sugerencia:hover {
-    background-color: #f0f0f0; /* Fondo gris clarito al pasar el ratón */
+    background-color: #f0f0f0; 
 }

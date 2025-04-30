@@ -2,6 +2,10 @@
 include("../conexion.php");
 session_start();
 
+/**
+ * Codigo casi reciclado del ejercicio de pelis de Dani
+ */
+
 // Obtener los datos del formulario
 $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
 $correo = isset($_POST['correo']) ? trim($_POST['correo']) : '';

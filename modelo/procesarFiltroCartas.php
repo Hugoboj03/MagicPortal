@@ -2,6 +2,10 @@
 include("../conexion.php");
 session_start();
 
+/**
+ * Este fichero no hace absolutamente nada
+ */
+
 $nombreCarta = isset($_POST['nombreCarta']) ? trim($_POST['nombreCarta']) : '';
 $mana = isset($_POST['mana']) && is_array($_POST['mana']) ? $_POST['mana'] : [];
 $legendaria = isset($_POST['legendaria']) ? $_POST['legendaria'] : '';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2025 a las 20:37:53
+-- Tiempo de generación: 30-04-2025 a las 18:03:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `cartas`
 --
 
+DROP TABLE IF EXISTS `cartas`;
 CREATE TABLE `cartas` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -310,6 +311,7 @@ INSERT INTO `cartas` (`id`, `nombre`, `mana_rojo`, `mana_azul`, `mana_verde`, `m
 -- Estructura de tabla para la tabla `cartas_en_venta`
 --
 
+DROP TABLE IF EXISTS `cartas_en_venta`;
 CREATE TABLE `cartas_en_venta` (
   `id` int(11) NOT NULL,
   `id_carta` int(11) NOT NULL,
@@ -2221,7 +2223,8 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (1897, 97, 20, 4.76),
 (1898, 98, 20, 2.15),
 (1899, 99, 20, 4.62),
-(1900, 100, 20, 3.14);
+(1900, 100, 20, 3.14),
+(1901, 4, 1, 5.50);
 
 -- --------------------------------------------------------
 
@@ -2229,6 +2232,7 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 -- Estructura de tabla para la tabla `cartas_habilidades`
 --
 
+DROP TABLE IF EXISTS `cartas_habilidades`;
 CREATE TABLE `cartas_habilidades` (
   `id_carta` int(11) NOT NULL,
   `id_habilidad` int(11) NOT NULL
@@ -2308,6 +2312,7 @@ INSERT INTO `cartas_habilidades` (`id_carta`, `id_habilidad`) VALUES
 -- Estructura de tabla para la tabla `cartas_tipos_criatura`
 --
 
+DROP TABLE IF EXISTS `cartas_tipos_criatura`;
 CREATE TABLE `cartas_tipos_criatura` (
   `id_carta` int(11) NOT NULL,
   `id_tipo_criatura` int(11) NOT NULL
@@ -2429,6 +2434,7 @@ INSERT INTO `cartas_tipos_criatura` (`id_carta`, `id_tipo_criatura`) VALUES
 -- Estructura de tabla para la tabla `comentarios`
 --
 
+DROP TABLE IF EXISTS `comentarios`;
 CREATE TABLE `comentarios` (
   `id` int(11) NOT NULL,
   `id_comentado` int(11) NOT NULL,
@@ -2444,6 +2450,7 @@ CREATE TABLE `comentarios` (
 -- Estructura de tabla para la tabla `habilidades`
 --
 
+DROP TABLE IF EXISTS `habilidades`;
 CREATE TABLE `habilidades` (
   `id` int(11) NOT NULL,
   `habilidad` varchar(50) NOT NULL
@@ -2476,6 +2483,7 @@ INSERT INTO `habilidades` (`id`, `habilidad`) VALUES
 -- Estructura de tabla para la tabla `tipo_carta`
 --
 
+DROP TABLE IF EXISTS `tipo_carta`;
 CREATE TABLE `tipo_carta` (
   `id_habilidad` int(11) NOT NULL,
   `tipo` varchar(50) NOT NULL
@@ -2500,6 +2508,7 @@ INSERT INTO `tipo_carta` (`id_habilidad`, `tipo`) VALUES
 -- Estructura de tabla para la tabla `tipo_criatura`
 --
 
+DROP TABLE IF EXISTS `tipo_criatura`;
 CREATE TABLE `tipo_criatura` (
   `id` int(11) NOT NULL,
   `tipo_criatura_nombre` varchar(50) NOT NULL
@@ -2760,6 +2769,7 @@ INSERT INTO `tipo_criatura` (`id`, `tipo_criatura_nombre`) VALUES
 -- Estructura de tabla para la tabla `usuarios`
 --
 
+DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
@@ -2799,6 +2809,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contraseña`) VALUES
 -- Estructura de tabla para la tabla `ventas`
 --
 
+DROP TABLE IF EXISTS `ventas`;
 CREATE TABLE `ventas` (
   `id` int(11) NOT NULL,
   `id_vendedor` int(11) NOT NULL,
@@ -2896,7 +2907,7 @@ ALTER TABLE `cartas`
 -- AUTO_INCREMENT de la tabla `cartas_en_venta`
 --
 ALTER TABLE `cartas_en_venta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1901;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1902;
 
 --
 -- AUTO_INCREMENT de la tabla `comentarios`
@@ -2926,7 +2937,7 @@ ALTER TABLE `tipo_criatura`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`

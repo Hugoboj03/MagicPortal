@@ -12,6 +12,12 @@ include("../conexion.php");
 *$tipoCriatura2 = isset($_POST['TipoCriatura2']) ? trim($_POST['TipoCriatura2']) : '';
  */
 
+ /***
+  * Descubri esta manera de hacer busquedas en un video de youtube, pero me daba fallos en apartados como
+  la busqueda de mana o habilidades. Antonio me presto unos apuntes que tenia con los que acabe sacando esto.
+  */
+
+  
 
 function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades, $tipoCarta, $tipoCriatura1, $tipoCriatura2){
 
@@ -31,7 +37,7 @@ function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades,
     if (!empty($manas)) {
         $manaCondiciones = array();
         foreach ($manas as $mana) {
-            // Asegúrate de que el nombre coincide con las columnas
+            
             switch ($mana) {
                 case 'rojo':
                     $manaCondiciones[] = "mana_rojo > 0";
@@ -57,7 +63,7 @@ function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades,
 
     // Filtro por habilidades
     if (!empty($habilidades)) {
-        $habilidades = array_map('intval', $habilidades); // Sanear datos
+        $habilidades = array_map('intval', $habilidades); // Sanear datos por si acaso
         $ids = implode(',', $habilidades);
         $cantidad = count($habilidades);
 

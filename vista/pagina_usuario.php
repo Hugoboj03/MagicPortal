@@ -119,13 +119,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 
+
 <script>
+
+    /**
+     * Este script me ayuda a autocompletar la busqueda de cartas
+     */
     function buscarCartasPorNombreScript() {
         const nombreInput = document.getElementById('nombreCarta');
         const sugerenciasDiv = document.getElementById('sugerencias');
         const nombre = nombreInput.value.trim();
 
+        /**
+         * Si han escrito almenos una letra empezara la busqueda
+         */
         if (nombre.length > 0) {
+            /**Codificamos en nombre para que pueda ser enviado como una URL para más tarde ser recogido por PHP */
             fetch('?buscarNombre=' + encodeURIComponent(nombre))
                 .then(response => response.text())
                 .then(data => {
@@ -145,6 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    /**Se añade un evento que se activara cada vez que el usuario escriba una letra */
     document.getElementById('nombreCarta').addEventListener('input', buscarCartasPorNombreScript);
 </script>
 
