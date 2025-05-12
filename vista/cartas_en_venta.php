@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../conexion.php");
+include("header.php");
 
 $idCarta = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -26,6 +27,7 @@ $resultado = $conexion->query($sql);
 
 <body>
     <h1>Cartas en venta</h1>
+    
 
     <?php
     // Comprobamos si hay resultados
@@ -34,7 +36,7 @@ $resultado = $conexion->query($sql);
             <?php while ($row = $resultado->fetch_assoc()): ?>
                 <div class="carta">
                     
-                    <a href="cartas_en_venta.php?id=<?php echo $row['id']; ?>">
+                    <a href="comprar_a_vendedor.php?idCarta=<?php echo $row['id']; ?>&vendedor=<?php echo $row['vendedor']; ?>">
                         <img src="<?php echo "../img/" . $row['img']; ?>" alt="Imagen de la carta" style="width:200px">
                     </a>
                     <!--<p><strong>Nombre:</strong> <?php echo $row['nombre']; ?></p>-->

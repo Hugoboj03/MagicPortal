@@ -17,7 +17,7 @@ if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
         $usuario = mysqli_real_escape_string($conexion, $usuario);
         $contraseña_input = mysqli_real_escape_string($conexion, $contraseña);
 
-        $sql = "SELECT nombre, contraseña FROM usuarios WHERE nombre = '$usuario'";
+        $sql = "SELECT nombre, contraseña, moderador FROM usuarios WHERE nombre = '$usuario'";
         $resultado = mysqli_query($conexion, $sql);
 
         if ($resultado === false) {
@@ -27,6 +27,7 @@ if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
         if ($row = mysqli_fetch_assoc($resultado)) {
             $contraseña_hash = $row['contraseña'];
             $nombre = $row['nombre'];
+            $esModerador = $row['moderador'];
 
             echo "Llego aquí";
 
@@ -35,7 +36,12 @@ if (isset($_POST['usuario']) && isset($_POST['contraseña'])) {
                 $_SESSION['usuario'] = $nombre;
                 $_SESSION['nombre_usuario'] = $usuario;
                 echo "Llego aquí";
-                header("Location: ../vista/pagina_inicio.php");
+                if($esModerador == 1){
+                    header("Location: ../vista/pagina_moderador.php");
+                }else{
+                    header("Location: ../vista/pagina_inicio.php");
+                }
+                
                 exit();
             } else {
                 header("Location: ../vista/login.php?error=Usuario o contraseña incorrectos");

@@ -1,0 +1,40 @@
+/* Contenedor principal para los divs de moderación */
+.moderador-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px); /* Ajusta según la altura del header */
+    
+    padding: 20px;
+}
+
+/* Codigo compartido de los divs */
+.modUsuarios, .modCartas {
+    width: 300px;
+    height: 200px; 
+    margin: 10px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+
+.modUsuarios {
+    background-color: #ff6b6b; 
+}
+
+
+.modCartas {
+    background-color: #4ecdc4; 
+}
+
+a{
+    text-decoration: none; /* Quita el subrayado */
+    color: white;
+}

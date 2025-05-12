@@ -16,7 +16,7 @@ while ($row = $result->fetch_assoc()) {
 $valores = [];
 
 foreach ($usuarios as $usuarioId) {
-    for ($cartaId = 1; $cartaId <= 100; $cartaId++) {
+    for ($cartaId = 101; $cartaId <= 255; $cartaId++) {
         $precio = number_format(mt_rand(200, 500) / 100, 2, '.', '');
         $valores[] = "($cartaId, $usuarioId, $precio)";
     }
