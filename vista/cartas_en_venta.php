@@ -36,7 +36,7 @@ $resultado = $conexion->query($sql);
             <?php while ($row = $resultado->fetch_assoc()): ?>
                 <div class="carta">
                     
-                    <a href="comprar_a_vendedor.php?idCarta=<?php echo $row['id']; ?>&vendedor=<?php echo $row['vendedor']; ?>">
+                    <a href="comprar_a_vendedor.php?idCarta=<?php echo $row['id']; ?>&vendedor=<?php echo $row['vendedor']; ?>&precioCarta=<?php echo $row['precio']; ?>">
                         <img src="<?php echo "../img/" . $row['img']; ?>" alt="Imagen de la carta" style="width:200px">
                     </a>
                     <!--<p><strong>Nombre:</strong> <?php echo $row['nombre']; ?></p>-->

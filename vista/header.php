@@ -32,6 +32,11 @@ $nombreUsuario = $_SESSION['usuario'];
             color: #0066CC;
             text-align: center;
         }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 
@@ -40,7 +45,7 @@ $nombreUsuario = $_SESSION['usuario'];
         <div>Sistema de Gestión de Noticias</div>
 
         <div>
-        <a href="pagina_usuario.php">Usuario</a>
+            <a href="pagina_usuario.php">Usuario</a>
         </div>
 
         <div>Bienvenido, <?php echo $nombreUsuario; ?>

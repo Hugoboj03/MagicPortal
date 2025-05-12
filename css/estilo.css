@@ -8,6 +8,8 @@ body{
     
 }
 
+
+
 .form-container {
      /* Aumenté el ancho para dar espacio */
     margin: 0 auto;
@@ -181,4 +183,9 @@ button[type="submit"]:hover {
 
 .sugerencia:hover {
     background-color: #f0f0f0; 
+}
+
+a{
+    text-decoration: none; /* Quita el subrayado */
+    color: white;
 }

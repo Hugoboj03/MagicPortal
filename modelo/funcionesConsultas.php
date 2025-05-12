@@ -138,9 +138,81 @@ function buscarCartasPorNombre($nombre){
 
 }
 
+function buscarUsuarioPorNombre($nombre){
+
+    global $conexion;
+
+    $stmt = $conexion->prepare("SELECT id FROM usuarios WHERE nombre = ?");
+    $stmt->bind_param("s", $nombre);
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows > 0) {
+        $fila = $resultado->fetch_assoc();
+        return $fila['id'];
+    } else {
+        return null;
+    }
+
+    
+
+}
+
 function validarPrecio($precio) {
     // Permite números con hasta 2 decimales, sin letras
     return preg_match('/^\d{1,6}(\.\d{1,2})?$/', $precio);
+}
+
+function procesarVenta($nombreVendedor, $nombreComprador, $idCarta, $precio){
+
+    global $conexion;
+
+    $idVendedor = buscarUsuarioPorNombre($nombreVendedor);
+    $idComprador = buscarUsuarioPorNombre($nombreComprador);
+
+    if ($idVendedor === null || $idComprador === null) {
+        return "Error: No se encontró alguno de los usuarios.";
+    }
+
+    // Preparar sentencia de inserción
+    $stmt = $conexion->prepare("INSERT INTO ventas (id_vendedor, id_comprador, id_carta, fecha_compra, precio) VALUES (?, ?, ?, NOW(), ?)");
+    $stmt->bind_param("iiid", $idVendedor, $idComprador, $idCarta, $precio);
+
+    if ($stmt->execute()) {
+        return "Venta registrada con éxito.";
+
+        $stmt->close();
+
+        //eliminarCartaEnVenta($idVendedor, $idCarta);
+
+
+        
+    } else {
+        return "Error al registrar la venta: " . $stmt->error;
+    }
+}
+
+function eliminarCartaEnVenta($nombreVendedor, $idCarta){
+
+    global $conexion;
+
+    $idVendedor = buscarUsuarioPorNombre($nombreVendedor);
+
+    $stmt = $conexion->prepare("DELETE FROM cartas_en_venta WHERE id_carta = ? AND id_vendedor = ?");
+    $stmt->bind_param("ii", $idCarta, $idVendedor);
+    
+    if ($stmt->execute()) {
+        $stmt->close();
+        return "Carta eliminada";
+    } else {
+        $error = "Error al eliminar la carta en venta: " . $stmt->error;
+        $stmt->close();
+        return $error;
+    }
+
+
+
 }
 
 
