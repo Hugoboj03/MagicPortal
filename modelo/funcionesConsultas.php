@@ -138,6 +138,45 @@ function buscarCartasPorNombre($nombre){
 
 }
 
+function obtenerDatosDeCartaPorNombre($nombre){
+
+    global $conexion;
+
+    $sql = "SELECT * FROM cartas WHERE nombre = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("s", $nombre);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows > 0) {
+        return $resultado->fetch_assoc();
+    } else {
+        return null;
+    }
+
+    $stmt->close();
+}
+
+function obtenerTiposDeCriatura(){
+
+    global $conexion;
+
+    $sql = "SELECT id_tipo_criatura, tipo_criatura_nombre FROM tipo_criatura";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    $tipos = [];
+
+    if ($resultado->num_rows > 0) {
+        $tipos = $resultado->fetch_all(MYSQLI_ASSOC); // devuelve todas las filas como array asociativo
+    }
+
+    $stmt->close();
+    return $tipos;
+
+}
+
 function buscarUsuarioPorNombre($nombre){
 
     global $conexion;
@@ -213,6 +252,49 @@ function eliminarCartaEnVenta($nombreVendedor, $idCarta){
 
 
 
+}
+
+function actualizarCarta($nombre, $mana_rojo, $mana_azul, $mana_verde, $mana_negro, $mana_blanco, $mana_neutro, $tipo_carta, $legendaria, $ataque, $defensa) {
+    global $conexion;
+
+    $sql = "UPDATE cartas 
+            SET mana_rojo = ?, mana_azul = ?, mana_verde = ?, mana_negro = ?, mana_blanco = ?, mana_neutro = ?, 
+                tipo_carta = ?, legendaria = ?, ataque = ?, defensa = ?
+            WHERE nombre = ?";
+
+    $stmt = $conexion->prepare($sql);
+    if (!$stmt) {
+        return "Error al preparar la consulta: " . $conexion->error;
+    }
+
+    $stmt->bind_param(
+        "iiiiiiiisss",
+        $mana_rojo,
+        $mana_azul,
+        $mana_verde,
+        $mana_negro,
+        $mana_blanco,
+        $mana_neutro,
+        $tipo_carta,
+        $legendaria,
+        $ataque,
+        $defensa,
+        $nombre
+    );
+
+    if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        } else {
+            $stmt->close();
+            return "No se modificó ninguna carta (puede que no exista o no hubo cambios).";
+        }
+    } else {
+        $error = $stmt->error;
+        $stmt->close();
+        return "Error al ejecutar la actualización: " . $error;
+    }
 }
 
 
