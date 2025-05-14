@@ -14,10 +14,16 @@ include("header.php");
 
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['usuario'])) {
+
+/*
+ * 
+ * if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit();
 }
+ * 
+ */
+
 
 if (!isset($_SESSION['filtros'])) {
     $_SESSION['filtros'] = [
@@ -28,7 +34,7 @@ if (!isset($_SESSION['filtros'])) {
         'tipoCarta' => '',
         'tipoCriatura1' => '',
         'tipoCriatura2' => '',
-        
+
     ];
 }
 
@@ -177,10 +183,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Inicio</title>
     <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amarante&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h2>Bienvenido, <?php echo $_SESSION['usuario']; ?>!</h2>
+
     <p style="text-align: center;">Esta es la página de inicio.</p>
     <a href="../modelo/cerrar_sesion.php">Cerrar Sesión</a>
 
@@ -394,15 +403,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Enlaces para moverse -->
 
-    <a href="?pagina=1">Principio</a>
+    <div class="navegarPaginas">
+        <a href="?pagina=1">Principio</a>
 
-    <a href="?pagina=<?php echo max(1, $paginaActual - 1); ?>">Página Anterior</a>
+        <a href="?pagina=<?php echo max(1, $paginaActual - 1); ?>">Página Anterior</a>
 
-    <?php echo "Pagina " . $paginaActual; ?>
+        <?php echo "Pagina " . $paginaActual; ?>
 
-    <a href="?pagina=<?php echo $paginaActual + 1; ?>">Página Siguiente</a>
+        <a href="?pagina=<?php echo $paginaActual + 1; ?>">Página Siguiente</a>
 
-    <a href="?pagina=<?php echo $totalPaginas ?>">Final</a>
+        <a href="?pagina=<?php echo $totalPaginas ?>">Final</a>
+    </div>
+
+
 
 
 </body>

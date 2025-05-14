@@ -1,5 +1,6 @@
 body{
     background: linear-gradient(#d7bf7d, #f5eabc);
+    font-family: "Amarante", serif;
     
     /**
     background-color: bisque;
@@ -7,6 +8,12 @@ body{
     
     
 }
+
+button, select{
+    font-family: "Amarante", serif;
+}
+
+
 
 
 
@@ -187,6 +194,19 @@ button[type="submit"]:hover {
 
 a{
     text-decoration: none; /* Quita el subrayado */
-    color: white;
+    color: rgb(206, 95, 95);
+}
+
+.navegarPaginas{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* espacio entre enlaces */
+    margin: 40px auto; /* margen superior e inferior */
+    
+    font-size: 18px;
+    
+    
 }
 

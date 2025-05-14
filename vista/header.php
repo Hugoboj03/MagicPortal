@@ -1,5 +1,9 @@
 <?php
-$nombreUsuario = $_SESSION['usuario'];
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$nombreUsuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -45,17 +49,24 @@ $nombreUsuario = $_SESSION['usuario'];
         <div>Sistema de Gestión de Noticias</div>
 
         <div>
-            <a href="pagina_usuario.php">Usuario</a>
+            <?php if ($nombreUsuario): ?>
+                <a href="pagina_usuario.php">Usuario</a>
+            <?php else: ?>
+                <a href="login.php">Iniciar sesión</a>
+            <?php endif; ?>
         </div>
 
-        <div>Bienvenido, <?php echo $nombreUsuario; ?>
-
-            <a href="../modelo/cerrar_sesion.php">
-                <img src="../img2/salir.png" width="20" alt="Cerrar sesión">
-            </a>
+        <div>
+            <?php if ($nombreUsuario): ?>
+                Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>
+                <a href="../modelo/cerrar_sesion.php">
+                    <img src="../img2/salir.png" width="20" alt="Cerrar sesión">
+                </a>
+            <?php else: ?>
+                Invitado
+            <?php endif; ?>
         </div>
     </header>
-
 </body>
 
 </html>
