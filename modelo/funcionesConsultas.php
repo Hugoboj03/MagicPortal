@@ -3,23 +3,24 @@
 include("../conexion.php");
 //session_start();
 /**
-* $nombreCarta = isset($_POST['nombreCarta']) ? trim($_POST['nombreCarta']) : '';
-*$mana = isset($_POST['mana']) && is_array($_POST['mana']) ? $_POST['mana'] : [];
-*$legendaria = isset($_POST['legendaria']) ? $_POST['legendaria'] : '';
-*$habilidades = isset($_POST['habilidad']) && is_array($_POST['habilidad']) ? $_POST['habilidad'] : [];
-*$tipoCarta = isset($_POST['tipoCarta']) ? trim($_POST['tipoCarta']) : '';
-*$tipoCriatura1 = isset($_POST['TipoCriatura1']) ? trim($_POST['TipoCriatura1']) : '';
-*$tipoCriatura2 = isset($_POST['TipoCriatura2']) ? trim($_POST['TipoCriatura2']) : '';
+ * $nombreCarta = isset($_POST['nombreCarta']) ? trim($_POST['nombreCarta']) : '';
+ *$mana = isset($_POST['mana']) && is_array($_POST['mana']) ? $_POST['mana'] : [];
+ *$legendaria = isset($_POST['legendaria']) ? $_POST['legendaria'] : '';
+ *$habilidades = isset($_POST['habilidad']) && is_array($_POST['habilidad']) ? $_POST['habilidad'] : [];
+ *$tipoCarta = isset($_POST['tipoCarta']) ? trim($_POST['tipoCarta']) : '';
+ *$tipoCriatura1 = isset($_POST['TipoCriatura1']) ? trim($_POST['TipoCriatura1']) : '';
+ *$tipoCriatura2 = isset($_POST['TipoCriatura2']) ? trim($_POST['TipoCriatura2']) : '';
  */
 
- /***
-  * Descubri esta manera de hacer busquedas en un video de youtube, pero me daba fallos en apartados como
+/***
+ * Descubri esta manera de hacer busquedas en un video de youtube, pero me daba fallos en apartados como
   la busqueda de mana o habilidades. Antonio me presto unos apuntes que tenia con los que acabe sacando esto.
-  */
+ */
 
-  
 
-function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades, $tipoCarta, $tipoCriatura1, $tipoCriatura2){
+
+function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades, $tipoCarta, $tipoCriatura1, $tipoCriatura2)
+{
 
     global $conexion;
 
@@ -27,7 +28,6 @@ function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades,
 
     if (!empty($nombreCarta)) {
         $sql .= " AND nombre LIKE '%$nombreCarta%'";
-        
     }
 
     if ($legendaria !== '') {
@@ -37,7 +37,7 @@ function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades,
     if (!empty($manas)) {
         $manaCondiciones = array();
         foreach ($manas as $mana) {
-            
+
             switch ($mana) {
                 case 'rojo':
                     $manaCondiciones[] = "mana_rojo > 0";
@@ -84,14 +84,14 @@ function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades,
     // Filtro por criatura
     if (!empty($tipoCriatura1) || !empty($tipoCriatura2)) {
         $tiposSeleccionados = [];
-    
+
         if (!empty($tipoCriatura1)) {
             $tiposSeleccionados[] = "'" . $conexion->real_escape_string($tipoCriatura1) . "'";
         }
         if (!empty($tipoCriatura2)) {
             $tiposSeleccionados[] = "'" . $conexion->real_escape_string($tipoCriatura2) . "'";
         }
-    
+
         $cantidad = count($tiposSeleccionados);
         $sql .= " AND cartas.id IN (
             SELECT id_carta FROM cartas_tipos_criatura
@@ -116,10 +116,10 @@ function obtenerCartasFiltradas($nombreCarta, $legendaria, $manas, $habilidades,
     $conexion->close();
 
     return $cartas;
-
 }
 
-function buscarCartasPorNombre($nombre){
+function buscarCartasPorNombre($nombre)
+{
 
     global $conexion;
 
@@ -135,10 +135,10 @@ function buscarCartasPorNombre($nombre){
     }
 
     return $cartas;
-
 }
 
-function obtenerDatosDeCartaPorNombre($nombre){
+function obtenerDatosDeCartaPorNombre($nombre)
+{
 
     global $conexion;
 
@@ -157,7 +157,8 @@ function obtenerDatosDeCartaPorNombre($nombre){
     $stmt->close();
 }
 
-function obtenerTiposDeCriatura(){
+function obtenerTiposDeCriatura()
+{
 
     global $conexion;
 
@@ -174,7 +175,6 @@ function obtenerTiposDeCriatura(){
 
     $stmt->close();
     return $tipos;
-
 }
 
 function buscarUsuarioPorNombre($nombre){
@@ -193,17 +193,16 @@ function buscarUsuarioPorNombre($nombre){
     } else {
         return null;
     }
-
-    
-
 }
 
-function validarPrecio($precio) {
+function validarPrecio($precio)
+{
     // Permite números con hasta 2 decimales, sin letras
     return preg_match('/^\d{1,6}(\.\d{1,2})?$/', $precio);
 }
 
-function procesarVenta($nombreVendedor, $nombreComprador, $idCarta, $precio){
+function procesarVenta($nombreVendedor, $nombreComprador, $idCarta, $precio)
+{
 
     global $conexion;
 
@@ -226,13 +225,14 @@ function procesarVenta($nombreVendedor, $nombreComprador, $idCarta, $precio){
         //eliminarCartaEnVenta($idVendedor, $idCarta);
 
 
-        
+
     } else {
         return "Error al registrar la venta: " . $stmt->error;
     }
 }
 
-function eliminarCartaEnVenta($nombreVendedor, $idCarta){
+function eliminarCartaEnVenta($nombreVendedor, $idCarta)
+{
 
     global $conexion;
 
@@ -240,7 +240,7 @@ function eliminarCartaEnVenta($nombreVendedor, $idCarta){
 
     $stmt = $conexion->prepare("DELETE FROM cartas_en_venta WHERE id_carta = ? AND id_vendedor = ?");
     $stmt->bind_param("ii", $idCarta, $idVendedor);
-    
+
     if ($stmt->execute()) {
         $stmt->close();
         return "Carta eliminada";
@@ -249,12 +249,10 @@ function eliminarCartaEnVenta($nombreVendedor, $idCarta){
         $stmt->close();
         return $error;
     }
-
-
-
 }
 
-function actualizarCarta($nombre, $mana_rojo, $mana_azul, $mana_verde, $mana_negro, $mana_blanco, $mana_neutro, $tipo_carta, $legendaria, $ataque, $defensa) {
+function actualizarCarta($nombre, $mana_rojo, $mana_azul, $mana_verde, $mana_negro, $mana_blanco, $mana_neutro, $tipo_carta, $legendaria, $ataque, $defensa)
+{
     global $conexion;
 
     $sql = "UPDATE cartas 
@@ -297,5 +295,55 @@ function actualizarCarta($nombre, $mana_rojo, $mana_azul, $mana_verde, $mana_neg
     }
 }
 
+function historial($usuarioNombre)
+{
 
-?>
+    global $conexion;
+
+    $consulta = "
+        SELECT 
+            ventas.id AS id_venta,
+            u_vendedor.id AS id_vendedor,
+            u_vendedor.nombre AS nombre_vendedor,
+            c.nombre AS nombre_carta,
+            ventas.precio
+        FROM ventas
+        JOIN usuarios u_comprador ON ventas.id_comprador = u_comprador.id
+        JOIN usuarios u_vendedor ON ventas.id_vendedor = u_vendedor.id
+        JOIN cartas c ON ventas.id_carta = c.id
+        WHERE u_comprador.nombre = ?
+    ";
+
+    $stmt = $conexion->prepare($consulta);
+    $stmt->bind_param("s", $usuarioNombre);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    $historial = [];
+    while ($fila = $resultado->fetch_assoc()) {
+        $historial[] = $fila;
+    }
+
+    $stmt->close();
+    return $historial;
+}
+
+function obtenerImagenCarta($nombreCarta) {
+     global $conexion;
+     $imagen = "";
+
+    $stmt = $conexion->prepare("SELECT img FROM cartas WHERE nombre = ?");
+    $stmt->bind_param("s", $nombreCarta);
+    $stmt->execute();
+    $stmt->bind_result($imagen);
+
+    // Solo devuelve $imagen si se pudo hacer fetch correctamente
+    if ($stmt->fetch()) {
+        $stmt->close();
+        return $imagen;
+    } else {
+        $stmt->close();
+        // Puedes retornar null o una ruta por defecto
+        return "img/no_disponible.jpg";
+    }
+}
