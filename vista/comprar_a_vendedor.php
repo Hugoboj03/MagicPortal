@@ -55,33 +55,81 @@ if ($resultado && $resultado->num_rows > 0) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amarante&display=swap" rel="stylesheet">
+    <style>
+        .contenedor-body {
+            display: flex;
+
+
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Comprar Carta</h1>
+    <div class="contenedor-body">
+        <div class="form-container">
+            <div class="carta">
+                <h1>Comprar Carta</h1>
+                <img src="<?php echo "../img/" . $carta['img']; ?>" alt="Imagen de la carta" style="width:250px">
+                <p>
+                    <strong><?php echo $precioCarta == 0 ? 'Vendida' : 'Precio:'; ?></strong>
+                    <?php echo $precioCarta == 0 ? '' : '$' . number_format($precioCarta, 2); ?>
+                </p>
+                <p><strong>Vendedor: </strong><?php echo $nombreVendedor; ?></p>
+                <form action="comprar_a_vendedor.php" method="post">
+                    <input type="hidden" name="nombreVendedor" value="<?php echo $nombreVendedor; ?>">
+                    <input type="hidden" name="nombreUsuario" value="<?php echo $_SESSION["usuario"]; ?>">
+                    <input type="hidden" name="idCarta" value="<?php echo $idCarta; ?>">
+                    <input type="hidden" name="precio" value="<?php echo $precioCarta; ?>">
+                    <button type="submit">Comprar</button>
+                </form>
 
-    <div class="contenedor-cartas">
-        <div class="carta">
-            <img src="<?php echo "../img/" . $carta['img']; ?>" alt="Imagen de la carta" style="width:250px">
-            <p>
-                <strong><?php echo $precioCarta == 0 ? 'Vendida' : 'Precio:'; ?></strong>
-                <?php echo $precioCarta == 0 ? '' : '$' . number_format($precioCarta, 2); ?>
-            </p>
-            <p><strong>Vendedor:</strong><?php echo $nombreVendedor; ?></p>
-            <form action="comprar_a_vendedor.php" method="post">
-                <input type="hidden" name="nombreVendedor" value="<?php echo $nombreVendedor; ?>">
-                <input type="hidden" name="nombreUsuario" value="<?php echo $_SESSION["usuario"]; ?>">
-                <input type="hidden" name="idCarta" value="<?php echo $idCarta; ?>">
-                <input type="hidden" name="precio" value="<?php echo $precioCarta; ?>">
-                <button type="submit">Comprar</button>
-            </form>
+                
+            </div>
+
+
+            <!-- Botón de compra (puedes enlazarlo a un script que procese la compra) -->
+
         </div>
 
+        <div class="form-container">
+            <h2>Historial de ventas</h2>
+            <form action="../modelo/procesar_comentarios.php" method="post">
 
-        <!-- Botón de compra (puedes enlazarlo a un script que procese la compra) -->
 
+                <label for="comentario">Comentario:</label><br>
+                <textarea name="comentario" id="comentario" rows="15" cols="40" required></textarea><br><br>
+
+                <form method="POST" action="">
+                    <input type="text" name="mensaje" placeholder="Escribe tu mensaje..." required>
+                    <button type="submit">Enviar</button>
+                </form>
+
+            </form>
+            <?php
+
+                $nota = obtenerCalificacionMediaUsuario($nombreVendedor);
+
+                // Separar en enteros y medio
+                $estrellasCompletas = floor($nota);
+                $tieneMediaEstrella = fmod($nota, 1) == 0.5;
+
+                // Mostrar estrellas completas
+                for ($i = 0; $i < $estrellasCompletas; $i++) {
+                    echo '<img src="../img2/estrella.png" alt="estrella" width="60">';
+                }
+
+                // Mostrar media estrella si corresponde
+                if ($tieneMediaEstrella) {
+                    echo '<img src="../img2/mediaEstrella.png" alt="media estrella" width="60">';
+                }
+
+
+                ?>
+        </div>
     </div>
+
+
 
 
 

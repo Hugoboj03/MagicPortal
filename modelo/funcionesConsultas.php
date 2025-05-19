@@ -177,7 +177,8 @@ function obtenerTiposDeCriatura()
     return $tipos;
 }
 
-function buscarUsuarioPorNombre($nombre){
+function buscarUsuarioPorNombre($nombre)
+{
 
     global $conexion;
 
@@ -328,9 +329,10 @@ function historial($usuarioNombre)
     return $historial;
 }
 
-function obtenerImagenCarta($nombreCarta) {
-     global $conexion;
-     $imagen = "";
+function obtenerImagenCarta($nombreCarta)
+{
+    global $conexion;
+    $imagen = "";
 
     $stmt = $conexion->prepare("SELECT img FROM cartas WHERE nombre = ?");
     $stmt->bind_param("s", $nombreCarta);
@@ -345,5 +347,38 @@ function obtenerImagenCarta($nombreCarta) {
         $stmt->close();
         // Puedes retornar null o una ruta por defecto
         return "img/no_disponible.jpg";
+    }
+}
+
+function redondearMitad($numero) {
+    return round($numero * 2) / 2;
+}
+
+function obtenerCalificacionMediaUsuario($nombreUsuario){
+
+    global $conexion;
+
+    $suma = 0;
+    $cantidad = 0;
+
+    $idUsuario = buscarUsuarioPorNombre($nombreUsuario);
+
+    $stmt = $conexion->prepare("SELECT valoracion FROM comentarios WHERE id_comentado = ?");
+    $stmt->bind_param("s", $idUsuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $suma += $fila['valoracion'];
+        $cantidad++;
+    }
+
+    $stmt->close();
+
+    
+    if ($cantidad > 0) {
+        return redondearMitad($suma / $cantidad);
+    } else {
+        return 0; 
     }
 }
