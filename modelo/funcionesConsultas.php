@@ -382,3 +382,71 @@ function obtenerCalificacionMediaUsuario($nombreUsuario){
         return 0; 
     }
 }
+
+function tieneMensajes($nombreUsuario) {
+    global $conexion;
+
+    
+    $idUsuario = buscarUsuarioPorNombre($nombreUsuario);
+
+    if (!$idUsuario) {
+        return false; // Si no se encuentra es porque el usuario no tiene mensajes
+    }
+
+    // Si tiene almenos un mensaje se considerará true
+    $stmt = $conexion->prepare("SELECT 1 FROM mensajes WHERE id_receptor = ? LIMIT 1");
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    return $resultado->num_rows > 0;
+}
+
+function obtenerListaDeComentadores($nombreUsuario) {
+    global $conexion;
+
+    $idReceptor = buscarUsuarioPorNombre($nombreUsuario);
+    if (!$idReceptor) return [];
+
+    $stmt = $conexion->prepare("
+        SELECT DISTINCT id_emisor
+        FROM mensajes
+        WHERE id_receptor = ?
+    ");
+    $stmt->bind_param("i", $idReceptor);
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+    $emisores = [];
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $emisores[] = $fila['id_emisor'];
+    }
+
+    return $emisores;
+}
+
+function obtenerMensajesDeUsuario($nombreUsuario, $idEmisor) {
+    global $conexion;
+
+    $idReceptor = buscarUsuarioPorNombre($nombreUsuario);
+    if (!$idReceptor) return [];
+
+    $stmt = $conexion->prepare("
+        SELECT mensaje, fecha_envio
+        FROM mensajes
+        WHERE id_receptor = ? AND id_emisor = ?
+        ORDER BY fecha_envio ASC
+    ");
+    $stmt->bind_param("ii", $idReceptor, $idEmisor);
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+    $mensajes = [];
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $mensajes[] = $fila;
+    }
+
+    return $mensajes;
+}

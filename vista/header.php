@@ -1,4 +1,5 @@
 <?php
+include_once("../modelo/funcionesConsultas.php");
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -46,7 +47,12 @@ $nombreUsuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 
 <body>
     <header>
-        <div>Sistema de Gestión de Noticias</div>
+        <div>
+            Sistema de Gestión de Noticias
+            <?php if ($nombreUsuario && tieneMensajes($nombreUsuario)): ?>
+                <a href="hablar_con_comprador.php"><img src="../img2/campana.png" width="20" alt="Tienes mensajes"></a>
+            <?php endif; ?>
+        </div>
 
         <div>
             <?php if ($nombreUsuario): ?>
