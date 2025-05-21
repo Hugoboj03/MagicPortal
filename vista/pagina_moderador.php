@@ -27,6 +27,10 @@ include("header.php");
 <div class="modCartas">
     <a href="moderar_cartas.php"><p>MODERAR CARTAS</p></a>
 </div>
+
+<div class="añaCartas">
+    <a href="moderar_cartas.php"><p>AÑADIR CARTA</p></a>
+</div>
 </div>
 
 

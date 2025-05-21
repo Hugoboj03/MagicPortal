@@ -345,16 +345,18 @@ function obtenerImagenCarta($nombreCarta)
         return $imagen;
     } else {
         $stmt->close();
-        // Puedes retornar null o una ruta por defecto
+        
         return "img/no_disponible.jpg";
     }
 }
 
-function redondearMitad($numero) {
+function redondearMitad($numero)
+{
     return round($numero * 2) / 2;
 }
 
-function obtenerCalificacionMediaUsuario($nombreUsuario){
+function obtenerCalificacionMediaUsuario($nombreUsuario)
+{
 
     global $conexion;
 
@@ -375,22 +377,70 @@ function obtenerCalificacionMediaUsuario($nombreUsuario){
 
     $stmt->close();
 
-    
+
     if ($cantidad > 0) {
         return redondearMitad($suma / $cantidad);
     } else {
-        return 0; 
+        return 0;
     }
 }
 
-function tieneMensajes($nombreUsuario) {
+function usuariosConMenosDeTresEstrellas($nombreUsuario) {
     global $conexion;
 
-    
+    $suma = 0;
+    $cantidad = 0;
+
     $idUsuario = buscarUsuarioPorNombre($nombreUsuario);
 
+    $stmt = $conexion->prepare("SELECT valoracion FROM comentarios WHERE id_comentado = ?");
+    $stmt->bind_param("i", $idUsuario); 
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $suma += $fila['valoracion'];
+        $cantidad++;
+    }
+
+    $stmt->close();
+
+    if ($cantidad > 0) {
+        return redondearMitad($suma / $cantidad);
+    } else {
+        return null; 
+    }
+}
+
+function obtenerComentariosDeUsuario($idUsuario) {
+    global $conexion;
+
+    $comentarios = [];
+
+    $stmt = $conexion->prepare("SELECT comentario, fecha_comentario FROM comentarios WHERE id_comentado = ?");
+    $stmt->bind_param("i", $idUsuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $comentarios[] = $fila;
+    }
+
+    $stmt->close();
+
+    return $comentarios;
+}
+
+function tieneMensajes($nombreUsuario)
+{
+    global $conexion;
+
+
+    $idUsuario = buscarUsuarioPorNombre($nombreUsuario);
+
+    // Si sale falso es porque el usuario no a recibido mensajes
     if (!$idUsuario) {
-        return false; // Si no se encuentra es porque el usuario no tiene mensajes
+        return false; 
     }
 
     // Si tiene almenos un mensaje se considerará true
@@ -402,7 +452,8 @@ function tieneMensajes($nombreUsuario) {
     return $resultado->num_rows > 0;
 }
 
-function obtenerListaDeComentadores($nombreUsuario) {
+function obtenerListaDeComentadores($nombreUsuario)
+{
     global $conexion;
 
     $idReceptor = buscarUsuarioPorNombre($nombreUsuario);
@@ -426,19 +477,21 @@ function obtenerListaDeComentadores($nombreUsuario) {
     return $emisores;
 }
 
-function obtenerMensajesDeUsuario($nombreUsuario, $idEmisor) {
+function obtenerMensajesDeUsuario($nombreUsuario, $idOtroUsuario)
+{
     global $conexion;
 
-    $idReceptor = buscarUsuarioPorNombre($nombreUsuario);
-    if (!$idReceptor) return [];
+    $idActual = buscarUsuarioPorNombre($nombreUsuario);
+    if (!$idActual || !$idOtroUsuario) return [];
 
     $stmt = $conexion->prepare("
-        SELECT mensaje, fecha_envio
+        SELECT id_emisor, mensaje, fecha_envio
         FROM mensajes
-        WHERE id_receptor = ? AND id_emisor = ?
+        WHERE (id_emisor = ? AND id_receptor = ?)
+           OR (id_emisor = ? AND id_receptor = ?)
         ORDER BY fecha_envio ASC
     ");
-    $stmt->bind_param("ii", $idReceptor, $idEmisor);
+    $stmt->bind_param("iiii", $idActual, $idOtroUsuario, $idOtroUsuario, $idActual);
     $stmt->execute();
 
     $resultado = $stmt->get_result();

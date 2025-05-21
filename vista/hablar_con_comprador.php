@@ -24,21 +24,23 @@ foreach ($idsUsuarios as $idEmisor) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensajes</title>
     <link rel="stylesheet" href="../css/estilo.css">
 </head>
+
 <body>
-    <h2>Hola, <?php echo htmlspecialchars($nombreUsuario); ?></h2>
+    <h2>Hola, <?php echo $nombreUsuario; ?></h2>
 
     <div class="form-container">
         <label for="usuarioSelect">Selecciona un usuario:</label><br>
         <select id="usuarioSelect" onchange="mostrarMensajes()">
             <option value="">-- Elige un usuario --</option>
             <?php foreach ($usuarios as $u): ?>
-                <option value="<?php echo $u['id']; ?>"><?php echo htmlspecialchars($u['nombre']); ?></option>
+                <option value="<?php echo $u['id']; ?>"><?php echo $u['nombre']; ?></option>
             <?php endforeach; ?>
         </select>
 
@@ -46,28 +48,52 @@ foreach ($idsUsuarios as $idEmisor) {
 
         <label for="mensajes">Mensajes recibidos:</label><br>
         <textarea id="mensajes" rows="10" cols="50" readonly></textarea>
+        <form action="../modelo/procesar_mensajes.php" method="post">
+            <label for="comentario">Escribe tu mensaje:</label><br>
+            <textarea name="comentario" rows="2" cols="50" required></textarea><br>
+            <input type="hidden" name="nombre_emisor" value="<?php echo $_SESSION['usuario']; ?>">
+            <input type="hidden" name="id_receptor" id="idReceptorInput">
+            <input type="hidden" name="procedencia" value="1">
+            <button type="submit">Comprar</button>
+        </form>
     </div>
 
     <script>
+        // Obtenemos nuestro nombre de usuario
+        const idUsuarioActual = <?php echo buscarUsuarioPorNombre($nombreUsuario); ?>;
+
         const mensajesPorUsuario = <?php
-            $mensajesJS = [];
-            foreach ($usuarios as $usuario) {
-                $mensajes = obtenerMensajesDeUsuario($nombreUsuario, $usuario['id']);
-                $mensajesFormateados = [];
-                foreach ($mensajes as $mensaje) {
-                    $mensajesFormateados[] = "[" . $mensaje['fecha_envio'] . "] " . $mensaje['mensaje'];
-                }
-                $mensajesJS[$usuario['id']] = implode("\n---\n", $mensajesFormateados);
-            }
-            echo json_encode($mensajesJS, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
-        ?>;
+                                    $mensajesJS = [];
+                                    $idActual = buscarUsuarioPorNombre($nombreUsuario);
+
+                                    foreach ($usuarios as $usuario) {
+                                        $mensajes = obtenerMensajesDeUsuario($nombreUsuario, $usuario['id']);
+                                        $mensajesFormateados = [];
+
+                                        foreach ($mensajes as $mensaje) {
+                                            $emisor = $mensaje['id_emisor'] == $idActual ? "Yo" : $usuario['nombre'];
+                                            $mensajesFormateados[] = "[" . $mensaje['fecha_envio'] . "] " . $emisor . ": " . $mensaje['mensaje'];
+                                        }
+
+                                        $mensajesJS[$usuario['id']] = implode("\n", $mensajesFormateados);
+                                    }
+
+                                    echo json_encode($mensajesJS, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+                                    ?>;
 
         function mostrarMensajes() {
             const select = document.getElementById('usuarioSelect');
             const textarea = document.getElementById('mensajes');
             const idSeleccionado = select.value;
+
+            // Mostramos el mensaje
             textarea.value = mensajesPorUsuario[idSeleccionado] || "No hay mensajes.";
+
+            // Enviamos el id al hidden
+            const inputReceptor = document.getElementById('idReceptorInput');
+            inputReceptor.value = idSeleccionado;
         }
     </script>
 </body>
+
 </html>
