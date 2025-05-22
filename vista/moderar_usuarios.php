@@ -28,6 +28,9 @@ foreach ($usuarios as $usuario) {
     <meta charset="UTF-8">
     <title>Usuarios con baja calificación</title>
     <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amarante&display=swap" rel="stylesheet">
     <style>
         .contenedor-body {
             display: flex;

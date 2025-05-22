@@ -96,12 +96,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amarante&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <h2>Poner carta en venta</h2>
+    <h1>Editar carta</h1>
     <div class="form-container">
         <form action="moderar_cartas.php" method="post">
             <div class="search-group">

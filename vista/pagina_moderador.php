@@ -29,7 +29,7 @@ include("header.php");
 </div>
 
 <div class="añaCartas">
-    <a href="moderar_cartas.php"><p>AÑADIR CARTA</p></a>
+    <a href="añadir_carta.php"><p>AÑADIR CARTA</p></a>
 </div>
 </div>
 

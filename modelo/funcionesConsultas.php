@@ -157,25 +157,7 @@ function obtenerDatosDeCartaPorNombre($nombre)
     $stmt->close();
 }
 
-function obtenerTiposDeCriatura()
-{
 
-    global $conexion;
-
-    $sql = "SELECT id_tipo_criatura, tipo_criatura_nombre FROM tipo_criatura";
-    $stmt = $conexion->prepare($sql);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-
-    $tipos = [];
-
-    if ($resultado->num_rows > 0) {
-        $tipos = $resultado->fetch_all(MYSQLI_ASSOC); // devuelve todas las filas como array asociativo
-    }
-
-    $stmt->close();
-    return $tipos;
-}
 
 function buscarUsuarioPorNombre($nombre)
 {
@@ -503,3 +485,49 @@ function obtenerMensajesDeUsuario($nombreUsuario, $idOtroUsuario)
 
     return $mensajes;
 }
+
+function obtenerTiposDeCarta() {
+    global $conexion;
+
+    $tipos = [];
+    $stmt = $conexion->prepare("SELECT tipo FROM tipo_carta");
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $tipos[] = $fila['tipo'];
+    }
+
+    $stmt->close();
+    return $tipos;
+}
+
+function obtenerTiposDeCriatura()
+{
+
+    global $conexion;
+
+    $sql = "SELECT tipo_criatura_nombre FROM tipo_criatura";
+    $stmt = $conexion->prepare($sql);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    $tipoC = [];
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $tipoC[] = $fila['tipo_criatura_nombre'];
+    }
+
+    /***
+     * if ($resultado->num_rows > 0) {
+        $tipos = $resultado->fetch_all(MYSQLI_ASSOC);
+    }
+
+     */
+
+    
+    $stmt->close();
+    return $tipoC;
+}
+
+
