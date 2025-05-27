@@ -70,6 +70,49 @@ if ($resultado && $resultado->num_rows > 0) {
 
 
         }
+
+        @media (max-width: 768px) {
+        .contenedor-body {
+            display: block;
+            max-width: 95%;
+            margin: 0 auto; 
+        }
+
+        .form-container {
+            width: 100%;
+            margin-bottom: 1rem; 
+            text-align: center;
+        }
+
+        .carta {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+        }
+
+        .carta img {
+            max-width: 200px;
+        }
+    }
+
+    
+    @media (max-width: 500px) {
+        .contenedor-body {
+            display: block;
+            max-width: 95%; 
+            margin: 0 auto;
+        }
+
+        .form-container {
+            width: 100%;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .carta img {
+            max-width: 170px;
+        }
+    }
     </style>
 </head>
 

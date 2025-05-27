@@ -30,12 +30,24 @@ foreach ($idsUsuarios as $idEmisor) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensajes</title>
     <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amarante&display=swap" rel="stylesheet">
+    <style>
+        .form-container {
+        max-width: 90%;
+        margin: 0 auto;
+        padding: clamp(15px, 3vw, 20px);
+        text-align: center;
+    }
+    </style>
 </head>
 
 <body>
-    <h2>Hola, <?php echo $nombreUsuario; ?></h2>
 
+    <br><br>
     <div class="form-container">
+        <h1>Usuarios que te escribieron</h1>
         <label for="usuarioSelect">Selecciona un usuario:</label><br>
         <select id="usuarioSelect" onchange="mostrarMensajes()">
             <option value="">-- Elige un usuario --</option>
@@ -47,7 +59,7 @@ foreach ($idsUsuarios as $idEmisor) {
         <br><br>
 
         <label for="mensajes">Mensajes recibidos:</label><br>
-        <textarea id="mensajes" rows="10" cols="50" readonly></textarea>
+        <textarea id="mensajes" rows="16" cols="50" readonly></textarea>
         <form action="../modelo/procesar_mensajes.php" method="post">
             <label for="comentario">Escribe tu mensaje:</label><br>
             <textarea name="comentario" rows="2" cols="50" required></textarea><br>

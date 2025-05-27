@@ -186,12 +186,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amarante&display=swap" rel="stylesheet">
+    <style>
+        @media (max-width: 768px) {
+            .primer-contenedor-form {
+                flex-direction: column;
+                
+                align-items: center;
+            }
+
+
+            button[type="submit"] {
+                width: 100%;
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .primer-contenedor-form {
+                flex-direction: column;
+                
+                align-items: center;
+            }
+
+
+            button[type="submit"] {
+                width: 100%;
+                max-width: 150px;
+            }
+        }
+
+        
+    </style>
 </head>
 
 <body>
 
-    <p style="text-align: center;">Esta es la página de inicio.</p>
-    <a href="../modelo/cerrar_sesion.php">Cerrar Sesión</a>
+    <!--<p style="text-align: center;">Esta es la página de inicio.</p>-->
+    <!--<a href="../modelo/cerrar_sesion.php">Cerrar Sesión</a>-->
 
     <div class="form-container">
         <h1>Magic Portal</h1>
@@ -370,14 +401,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
         </form>
-    </div>
+    </div><br><br>
 
     <div class="contenedor-cartas">
         <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_SESSION['filtros'])) {
             foreach ($consultaFiltrada as $carta): ?>
                 <div class="carta">
-                    <p><?php echo $carta['nombre']; ?></p>
+                    <p class="nombreCarta"><?php echo $carta['nombre']; ?></p>
                     <a href="cartas_en_venta.php?id=<?php echo $carta['id']; ?>">
                         <img src="<?php echo "../img/" . $carta['img']; ?>" alt="Imagen">
                     </a>
@@ -388,7 +419,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             while ($consulta->fetch()): ?>
                 <div class="carta">
-                    <p><?php echo $nombre; ?></p>
+                    <p class="nombreCarta"><?php echo $nombre; ?></p>
                     <a href="cartas_en_venta.php?id=<?php echo $idCarta ?>">
                         <img src="<?php echo "../img/" . $img; ?>" alt="Imagen">
                     </a>
@@ -404,15 +435,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Enlaces para moverse -->
 
     <div class="navegarPaginas">
-        <a href="?pagina=1">Principio</a>
+        <a href="?pagina=1" class="navegacionEnlace">Principio</a>
 
-        <a href="?pagina=<?php echo max(1, $paginaActual - 1); ?>">Página Anterior</a>
+        <a href="?pagina=<?php echo max(1, $paginaActual - 1); ?>" class="navegacionEnlace">Página Anterior</a>
 
         <?php echo "Pagina " . $paginaActual; ?>
 
-        <a href="?pagina=<?php echo $paginaActual + 1; ?>">Página Siguiente</a>
+        <a href="?pagina=<?php echo $paginaActual + 1; ?>" class="navegacionEnlace">Página Siguiente</a>
 
-        <a href="?pagina=<?php echo $totalPaginas ?>">Final</a>
+        <a href="?pagina=<?php echo $totalPaginas ?>" class="navegacionEnlace">Final</a>
     </div>
 
 

@@ -1,16 +1,26 @@
-body{
+body {
     background: linear-gradient(#d7bf7d, #f5eabc);
     font-family: "Amarante", serif;
-    
+
     /**
     background-color: bisque;
     */
-    
-    
+
+
 }
 
-button, select{
+.nombreCarta {
+    font-size: 20px;
+}
+
+button,
+select {
     font-family: "Amarante", serif;
+}
+
+h1 {
+    color: #000000;
+    font-size: 30px;
 }
 
 
@@ -18,7 +28,7 @@ button, select{
 
 
 .form-container {
-     /* Aumenté el ancho para dar espacio */
+    /* Aumenté el ancho para dar espacio */
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
@@ -40,14 +50,14 @@ form {
     display: flex;
     justify-content: center;
     */
-    
+
 }
 
-.primer-contenedor-form{
+.primer-contenedor-form {
     display: flex;
     justify-content: space-around;
-    
-    
+
+
 }
 
 .search-group {
@@ -58,13 +68,13 @@ form {
 
 .search-group label,
 .mana-group h3,
-.legendary-group h3, 
+.legendary-group h3,
 .tipo-carta h3,
 .tipo-criatura1 h3,
 .tipo-criatura2 h3 {
     font-weight: bold;
     margin-bottom: 5px;
-    color: #444;
+    color: #000000;
     font-size: 14px;
 }
 
@@ -143,19 +153,20 @@ button[type="submit"] {
     font-size: 14px;
     cursor: pointer;
     transition: transform 0.2s, background 0.3s;
-    align-self: center; /* Centra el */
+    align-self: center;
+    /* Centra el */
 }
 
-select{
+select {
     padding: 8px;
-    border: none; 
+    border: none;
     border-radius: 5px;
     font-size: 14px;
-    background: linear-gradient(to right, #d4a017, #8b6f47); 
-    color: rgb(0, 0, 0); 
+    background: linear-gradient(to right, #d4a017, #8b6f47);
+    color: rgb(0, 0, 0);
     min-width: 150px;
     cursor: pointer;
-    
+
 }
 
 button[type="submit"]:hover {
@@ -166,16 +177,20 @@ button[type="submit"]:hover {
 
 .contenedor-cartas {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-    gap: 10px; /* Espacio entre cartas */
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columnas */
+    gap: 10px;
+    /* Espacio entre cartas */
     text-align: center;
 }
+
 .carta {
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 10px;
     background: #f9f9f9;
 }
+
 .carta img {
     width: 270px;
     height: auto;
@@ -183,30 +198,72 @@ button[type="submit"]:hover {
 
 .sugerencia {
     padding: 8px;
-    cursor: pointer; 
-    background-color: white; 
-    border-bottom: 1px solid #ddd; 
+    cursor: pointer;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
 }
 
 .sugerencia:hover {
-    background-color: #f0f0f0; 
+    background-color: #f0f0f0;
 }
 
-a{
-    text-decoration: none; /* Quita el subrayado */
-    color: rgb(206, 95, 95);
+a {
+    text-decoration: none;
+    /* Quita el subrayado */
+    color: rgb(255, 255, 255);
 }
 
-.navegarPaginas{
+.navegacionEnlace {
+    color: rgb(0, 0, 0);
+}
+
+.navegarPaginas {
 
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px; /* espacio entre enlaces */
-    margin: 40px auto; /* margen superior e inferior */
-    
+    gap: 15px;
+    /* espacio entre enlaces */
+    margin: 40px auto;
+    /* margen superior e inferior */
+
     font-size: 18px;
-    
-    
+
+
 }
 
+@media (max-width: 768px) {
+
+
+    .contenedor-cartas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .carta img {
+        max-width: 200px;
+    }
+
+
+}
+
+@media (max-width: 500px) {
+
+
+    .contenedor-cartas {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        text-align: center;
+
+    }
+
+    .carta img {
+        max-width: 170px;
+    }
+
+
+}
