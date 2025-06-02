@@ -38,7 +38,7 @@ $resultado = $conexion->query($sql);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amarante&display=swap" rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -57,7 +57,10 @@ $resultado = $conexion->query($sql);
                             <img src="<?php echo "../img/" . $row['img']; ?>" alt="Imagen de la carta" style="width:200px">
                         </a>
                     <?php else: ?>
-                        <img src="<?php echo "../img/" . $row['img']; ?>" alt="Imagen de la carta" style="width:200px; opacity: 0.7;">
+                        <a href="login.php">
+                            <img src="<?php echo "../img/" . $row['img']; ?>" alt="Imagen de la carta" style="width:200px; opacity: 0.7;">
+                        </a>
+
                         <p style="color: red; font-weight: bold;">Debes iniciar sesión para comprar esta carta.</p>
                     <?php endif; ?>
                     <!--<p><strong>Nombre:</strong> <?php echo $row['nombre']; ?></p>-->
@@ -72,15 +75,20 @@ $resultado = $conexion->query($sql);
 
 
     <div class="navegarPaginas">
-    <a href="?id=<?php echo $idCarta; ?>&pagina=1" class="navegacionEnlace">Principio</a>
-    <a href="?id=<?php echo $idCarta; ?>&pagina=<?php echo max(1, $paginaActual - 1); ?>" class="navegacionEnlace">Página Anterior</a>
-    <span>Página <?php echo $paginaActual; ?> de <?php echo $totalPaginas; ?></span>
-    <a href="?id=<?php echo $idCarta; ?>&pagina=<?php echo min($totalPaginas, $paginaActual + 1); ?>" class="navegacionEnlace">Página Siguiente</a>
-    <a href="?id=<?php echo $idCarta; ?>&pagina=<?php echo $totalPaginas; ?>" class="navegacionEnlace">Final</a>
-</div>
+        <a href="?id=<?php echo $idCarta; ?>&pagina=1" class="navegacionEnlace">Principio</a>
+        <a href="?id=<?php echo $idCarta; ?>&pagina=<?php echo max(1, $paginaActual - 1); ?>" class="navegacionEnlace">Página Anterior</a>
+        <span>Página <?php echo $paginaActual; ?> de <?php echo $totalPaginas; ?></span>
+        <a href="?id=<?php echo $idCarta; ?>&pagina=<?php echo min($totalPaginas, $paginaActual + 1); ?>" class="navegacionEnlace">Página Siguiente</a>
+        <a href="?id=<?php echo $idCarta; ?>&pagina=<?php echo $totalPaginas; ?>" class="navegacionEnlace">Final</a>
+    </div>
 
 
 
 </body>
+<?php
+
+include("footer.php");
+
+?>
 
 </html>

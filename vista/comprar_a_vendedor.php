@@ -72,47 +72,47 @@ if ($resultado && $resultado->num_rows > 0) {
         }
 
         @media (max-width: 768px) {
-        .contenedor-body {
-            display: block;
-            max-width: 95%;
-            margin: 0 auto; 
+            .contenedor-body {
+                display: block;
+                max-width: 95%;
+                margin: 0 auto;
+            }
+
+            .form-container {
+                width: 100%;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            .carta {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .carta img {
+                max-width: 200px;
+            }
         }
 
-        .form-container {
-            width: 100%;
-            margin-bottom: 1rem; 
-            text-align: center;
-        }
 
-        .carta {
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
-        }
+        @media (max-width: 500px) {
+            .contenedor-body {
+                display: block;
+                max-width: 95%;
+                margin: 0 auto;
+            }
 
-        .carta img {
-            max-width: 200px;
-        }
-    }
+            .form-container {
+                width: 100%;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
 
-    
-    @media (max-width: 500px) {
-        .contenedor-body {
-            display: block;
-            max-width: 95%; 
-            margin: 0 auto;
+            .carta img {
+                max-width: 170px;
+            }
         }
-
-        .form-container {
-            width: 100%;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .carta img {
-            max-width: 170px;
-        }
-    }
     </style>
 </head>
 
@@ -140,7 +140,42 @@ if ($resultado && $resultado->num_rows > 0) {
             </div>
 
 
-            <!-- Botón de compra -->
+
+
+        </div>
+
+        <div class="form-container">
+            <h2>Comentarios del vendedor</h2>
+            <?php
+            $stmtVendedor = $conexion->prepare("SELECT id FROM usuarios WHERE nombre = ?");
+            $stmtVendedor->bind_param("s", $nombreVendedor);
+            $stmtVendedor->execute();
+            $resultVendedor = $stmtVendedor->get_result();
+
+            $idVendedor = 0;
+            if ($rowVendedor = $resultVendedor->fetch_assoc()) {
+                $idVendedor = $rowVendedor['id'];
+            }
+            $stmtVendedor->close();
+            if ($idVendedor > 0) {
+                $comentarios = obtenerComentariosDeUsuario($idVendedor);
+
+                if (!empty($comentarios)) {
+                    echo '<ul>';
+                    foreach ($comentarios as $comentario) {
+                        echo '<li>';
+                        echo '<p><strong>Comentario:</strong> ' . htmlspecialchars($comentario['comentario']) . '</p>';
+                        echo '<p><em>Fecha:</em> ' . htmlspecialchars($comentario['fecha_comentario']) . '</p>';
+                        echo '</li><hr>';
+                    }
+                    echo '</ul>';
+                } else {
+                    echo "<p>Este vendedor aún no tiene comentarios.</p>";
+                }
+            } else {
+                echo "<p>No se encontró información del vendedor.</p>";
+            }
+            ?>
 
         </div>
 
@@ -164,6 +199,7 @@ if ($resultado && $resultado->num_rows > 0) {
 
             </form>
             <h2>Calificación del Vendedor</h2>
+
             <?php
 
             $nota = obtenerCalificacionMediaUsuario($nombreVendedor);
@@ -193,5 +229,10 @@ if ($resultado && $resultado->num_rows > 0) {
 
 
 </body>
+<?php
+
+include("footer.php");
+
+?>
 
 </html>

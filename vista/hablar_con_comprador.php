@@ -107,5 +107,10 @@ foreach ($idsUsuarios as $idEmisor) {
         }
     </script>
 </body>
+<?php
+
+include("footer.php");
+
+?>
 
 </html>

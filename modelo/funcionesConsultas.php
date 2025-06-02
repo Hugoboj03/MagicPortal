@@ -184,6 +184,20 @@ function validarPrecio($precio)
     return preg_match('/^\d{1,6}(\.\d{1,2})?$/', $precio);
 }
 
+function actualizarPrecioCarta($conexion, $idCarta, $idVendedor, $precio)
+{
+    $stmt = $conexion->prepare("UPDATE cartas_en_venta SET precio = ? WHERE id_carta = ? AND id_vendedor = ?");
+    $stmt->bind_param("dii", $precio, $idCarta, $idVendedor);
+    return $stmt->execute();
+}
+
+function eliminarCartaEnVentaDesdeUsuario($conexion, $idCarta, $idVendedor)
+{
+    $stmt = $conexion->prepare("DELETE FROM cartas_en_venta WHERE id_carta = ? AND id_vendedor = ?");
+    $stmt->bind_param("ii", $idCarta, $idVendedor);
+    return $stmt->execute();
+}
+
 function procesarVenta($nombreVendedor, $nombreComprador, $idCarta, $precio)
 {
 

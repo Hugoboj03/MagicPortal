@@ -109,6 +109,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: flex-start;
         }
 
+        .ver-cartas {
+            margin-left: 20px;
+
+        }
+
+        .ver-cartas a {
+            color: black;
+            
+            
+        }
+
         @media (max-width: 768px) {
             .contenedor-body {
                 display: block;
@@ -133,9 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         @media (max-width: 500px) {
             .contenedor-body {
                 display: block;
-                
+
                 max-width: 95%;
-                
+
                 margin: 0 auto;
             }
 
@@ -148,6 +159,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .carta img {
                 max-width: 170px;
             }
+
+
         }
     </style>
 
@@ -156,6 +169,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
     <h1>Panel usuario</h1>
+
+    <h2 class="ver-cartas"><a href="usuario_cartas_en_venta.php">VER CARTAS EN VENTA</a></h2>
 
     <div class="contenedor-body">
         <div class="form-container">
@@ -221,6 +236,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 </body>
+<?php
+
+include("footer.php");
+
+?>
 
 
 <script>

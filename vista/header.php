@@ -48,7 +48,7 @@ $nombreUsuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
 <body>
     <header>
         <div>
-            Sistema de Gestión de Noticias
+            Magic Portal: compra y venta de cartas
             <?php if ($nombreUsuario && tieneMensajes($nombreUsuario)): ?>
                 <a href="hablar_con_comprador.php"><img src="../img2/campana.png" width="20" alt="Tienes mensajes"></a>
             <?php endif; ?>
@@ -73,6 +73,8 @@ $nombreUsuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : null;
             <?php endif; ?>
         </div>
     </header>
+
+    
 </body>
 
 </html>
