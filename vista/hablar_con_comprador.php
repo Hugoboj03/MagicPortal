@@ -47,7 +47,7 @@ foreach ($idsUsuarios as $idEmisor) {
 
     <br><br>
     <div class="form-container">
-        <h1>Usuarios que te escribieron</h1>
+        <h1>Usuarios que le escribieron</h1>
         <label for="usuarioSelect">Selecciona un usuario:</label><br>
         <select id="usuarioSelect" onchange="mostrarMensajes()">
             <option value="">-- Elige un usuario --</option>

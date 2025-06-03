@@ -65,7 +65,7 @@ $resultado = $conexion->query($sql);
                     <?php endif; ?>
                     <!--<p><strong>Nombre:</strong> <?php echo $row['nombre']; ?></p>-->
                     <p><strong>Vendedor:</strong> <?php echo $row['vendedor']; ?></p>
-                    <p><strong>Precio:</strong> $<?php echo $row['precio']; ?></p>
+                    <p><strong>Precio:</strong> <?php echo $row['precio']; ?>€</p>
                 </div>
             <?php endwhile; ?>
         </div>

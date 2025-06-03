@@ -125,7 +125,7 @@ if ($resultado && $resultado->num_rows > 0) {
                 <img src="<?php echo "../img/" . $carta['img']; ?>" alt="Imagen de la carta" style="width:250px">
                 <p>
                     <strong><?php echo $precioCarta == 0 ? 'Vendida' : 'Precio:'; ?></strong>
-                    <?php echo $precioCarta == 0 ? '' : '$' . number_format($precioCarta, 2); ?>
+                    <?php echo $precioCarta == 0 ? '' : number_format($precioCarta, 2) . '€'; ?>
                 </p>
                 <p><strong>Vendedor: </strong><?php echo $nombreVendedor; ?></p>
                 <form action="comprar_a_vendedor.php" method="post">

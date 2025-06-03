@@ -60,7 +60,7 @@ $resultado = $conexion->query($sql);
                     <div class="carta">
                         <img src="<?php echo "../img/" . $row['img']; ?>" alt="Imagen de la carta" style="width:200px">
                         <p><strong>Nombre:</strong> <?php echo $row['nombre']; ?></p>
-                        <p><strong>Precio:</strong> €<?php echo number_format($row['precio'], 2); ?></p>
+                        <p><strong>Precio:</strong> <?php echo number_format($row['precio'], 2); ?>€</p>
                     </div>
                 </a>
             <?php endwhile; ?>
