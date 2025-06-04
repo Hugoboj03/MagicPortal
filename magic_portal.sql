@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-05-2025 a las 15:13:10
+-- Tiempo de generación: 04-06-2025 a las 19:30:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `magic_portal`
 --
-CREATE DATABASE IF NOT EXISTS `magic_portal` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `magic_portal`;
 
 -- --------------------------------------------------------
 
@@ -30,8 +28,8 @@ USE `magic_portal`;
 --
 
 DROP TABLE IF EXISTS `cartas`;
-CREATE TABLE IF NOT EXISTS `cartas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cartas` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `mana_rojo` int(11) NOT NULL DEFAULT 0,
   `mana_azul` int(11) NOT NULL DEFAULT 0,
@@ -43,10 +41,8 @@ CREATE TABLE IF NOT EXISTS `cartas` (
   `legendaria` tinyint(4) NOT NULL DEFAULT 0,
   `ataque` int(11) DEFAULT NULL,
   `defensa` int(11) DEFAULT NULL,
-  `img` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `tipo_carta` (`tipo_carta`)
-) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `img` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cartas`
@@ -56,7 +52,7 @@ INSERT INTO `cartas` (`id`, `nombre`, `mana_rojo`, `mana_azul`, `mana_verde`, `m
 (1, 'Garth el Tuerto', 1, 1, 1, 1, 1, 0, 1, 1, 5, 5, 'mh2-197-garth-one-eye.jpg'),
 (2, 'Marina Vendrell', 1, 1, 1, 1, 1, 0, 1, 1, 3, 5, 'dsk-221-marina-vendrell.jpg'),
 (3, 'Santuario de todos', 1, 1, 1, 1, 1, 0, 4, 1, NULL, NULL, 'm21-225-sanctum-of-all.jpg'),
-(4, 'Reminiscencia ancestral', 0, 1, 0, 0, 0, 3, 2, 0, NULL, NULL, 'lci-45-ancestral-reminiscence.jpg'),
+(4, 'Reminiscencia ancestral', 1, 1, 0, 0, 0, 3, 2, 0, NULL, NULL, 'lci-45-ancestral-reminiscence.jpg'),
 (5, 'Reto arcano', 0, 2, 0, 0, 0, 5, 2, 0, NULL, NULL, 'afc-14-arcane-endeavor.jpg'),
 (6, 'Atraco arcano', 0, 2, 0, 0, 0, 2, 2, 0, NULL, NULL, 'otc-13-arcane-heist.jpg'),
 (7, 'Pericia de Baral', 0, 2, 0, 0, 0, 3, 2, 0, NULL, NULL, 'otc-91-baral-s-expertise.jpg'),
@@ -316,15 +312,12 @@ INSERT INTO `cartas` (`id`, `nombre`, `mana_rojo`, `mana_azul`, `mana_verde`, `m
 --
 
 DROP TABLE IF EXISTS `cartas_en_venta`;
-CREATE TABLE IF NOT EXISTS `cartas_en_venta` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cartas_en_venta` (
+  `id` int(11) NOT NULL,
   `id_carta` int(11) NOT NULL,
   `id_vendedor` int(11) NOT NULL,
-  `precio` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_carta` (`id_carta`),
-  KEY `id_vendedor` (`id_vendedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=4847 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `precio` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cartas_en_venta`
@@ -432,7 +425,6 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (99, 99, 2, 3.09),
 (100, 100, 2, 4.08),
 (101, 1, 3, 3.00),
-(102, 2, 3, 2.22),
 (103, 3, 3, 3.93),
 (104, 4, 3, 4.92),
 (105, 5, 3, 3.27),
@@ -533,7 +525,6 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (200, 100, 3, 4.29),
 (201, 1, 4, 3.38),
 (202, 2, 4, 2.96),
-(203, 3, 4, 2.51),
 (204, 4, 4, 2.74),
 (205, 5, 4, 4.90),
 (206, 6, 4, 2.80),
@@ -633,7 +624,6 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (300, 100, 4, 2.33),
 (301, 1, 5, 3.60),
 (302, 2, 5, 4.04),
-(303, 3, 5, 4.64),
 (304, 4, 5, 4.91),
 (305, 5, 5, 4.29),
 (306, 6, 5, 4.61),
@@ -832,7 +822,7 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (499, 99, 6, 3.95),
 (500, 100, 6, 4.07),
 (501, 1, 7, 4.55),
-(502, 2, 7, 3.43),
+(502, 2, 7, 7.00),
 (503, 3, 7, 3.82),
 (504, 4, 7, 3.75),
 (505, 5, 7, 2.32),
@@ -861,7 +851,6 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (528, 28, 7, 4.34),
 (529, 29, 7, 4.00),
 (530, 30, 7, 2.32),
-(531, 31, 7, 2.63),
 (532, 32, 7, 4.64),
 (533, 33, 7, 2.50),
 (534, 34, 7, 3.01),
@@ -938,7 +927,6 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (605, 5, 8, 4.24),
 (606, 6, 8, 4.30),
 (607, 7, 8, 2.37),
-(608, 8, 8, 2.62),
 (609, 9, 8, 4.29),
 (610, 10, 8, 3.29),
 (611, 11, 8, 3.76),
@@ -1338,7 +1326,6 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (1005, 5, 12, 3.67),
 (1006, 6, 12, 2.32),
 (1007, 7, 12, 4.05),
-(1008, 8, 12, 2.85),
 (1009, 9, 12, 5.00),
 (1010, 10, 12, 2.19),
 (1011, 11, 12, 2.67),
@@ -2036,7 +2023,6 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (1703, 3, 19, 3.57),
 (1704, 4, 19, 2.34),
 (1705, 5, 19, 2.05),
-(1706, 6, 19, 2.86),
 (1707, 7, 19, 3.45),
 (1708, 8, 19, 2.54),
 (1709, 9, 19, 2.96),
@@ -2231,7 +2217,7 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (1898, 98, 20, 2.15),
 (1899, 99, 20, 4.62),
 (1900, 100, 20, 3.14),
-(1901, 4, 1, 5.50),
+(1901, 4, 1, 8.00),
 (1902, 101, 2, 2.93),
 (1903, 102, 2, 4.85),
 (1904, 103, 2, 2.57),
@@ -2929,14 +2915,14 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (2596, 175, 6, 2.53),
 (2597, 176, 6, 4.60),
 (2598, 177, 6, 4.69),
-(2599, 178, 6, 3.67);
-INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
+(2599, 178, 6, 3.67),
 (2600, 179, 6, 3.70),
 (2601, 180, 6, 3.45),
 (2602, 181, 6, 4.07),
 (2603, 182, 6, 4.49),
 (2604, 183, 6, 4.14),
-(2605, 184, 6, 4.31),
+(2605, 184, 6, 4.31);
+INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (2606, 185, 6, 2.74),
 (2607, 186, 6, 4.40),
 (2608, 187, 6, 4.19),
@@ -4891,7 +4877,6 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (4557, 121, 19, 3.29),
 (4558, 122, 19, 4.15),
 (4559, 123, 19, 3.89),
-(4560, 124, 19, 3.27),
 (4561, 125, 19, 2.91),
 (4562, 126, 19, 2.45),
 (4563, 127, 19, 4.22),
@@ -5177,7 +5162,8 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 (4843, 252, 20, 4.57),
 (4844, 253, 20, 4.07),
 (4845, 254, 20, 2.38),
-(4846, 255, 20, 4.85);
+(4846, 255, 20, 4.85),
+(4847, 13, 1, 6.00);
 
 -- --------------------------------------------------------
 
@@ -5186,11 +5172,9 @@ INSERT INTO `cartas_en_venta` (`id`, `id_carta`, `id_vendedor`, `precio`) VALUES
 --
 
 DROP TABLE IF EXISTS `cartas_habilidades`;
-CREATE TABLE IF NOT EXISTS `cartas_habilidades` (
+CREATE TABLE `cartas_habilidades` (
   `id_carta` int(11) NOT NULL,
-  `id_habilidad` int(11) NOT NULL,
-  PRIMARY KEY (`id_carta`,`id_habilidad`),
-  KEY `id_habilidad` (`id_habilidad`)
+  `id_habilidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5268,11 +5252,9 @@ INSERT INTO `cartas_habilidades` (`id_carta`, `id_habilidad`) VALUES
 --
 
 DROP TABLE IF EXISTS `cartas_tipos_criatura`;
-CREATE TABLE IF NOT EXISTS `cartas_tipos_criatura` (
+CREATE TABLE `cartas_tipos_criatura` (
   `id_carta` int(11) NOT NULL,
-  `id_tipo_criatura` int(11) NOT NULL,
-  PRIMARY KEY (`id_carta`,`id_tipo_criatura`),
-  KEY `id_tipo_criatura` (`id_tipo_criatura`)
+  `id_tipo_criatura` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -5392,17 +5374,29 @@ INSERT INTO `cartas_tipos_criatura` (`id_carta`, `id_tipo_criatura`) VALUES
 --
 
 DROP TABLE IF EXISTS `comentarios`;
-CREATE TABLE IF NOT EXISTS `comentarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `comentarios` (
+  `id` int(11) NOT NULL,
   `id_comentado` int(11) NOT NULL,
   `id_comentador` int(11) NOT NULL,
   `fecha_comentario` date NOT NULL,
   `comentario` text NOT NULL,
-  `valoracion` int(11) NOT NULL CHECK (`valoracion` between 0 and 5),
-  PRIMARY KEY (`id`),
-  KEY `id_comentado` (`id_comentado`),
-  KEY `id_comentador` (`id_comentador`)
+  `valoracion` int(11) NOT NULL CHECK (`valoracion` between 0 and 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`id`, `id_comentado`, `id_comentador`, `fecha_comentario`, `comentario`, `valoracion`) VALUES
+(1, 20, 1, '2025-05-18', 'Fué amable y la carta vino en buen estado', 5),
+(2, 20, 1, '2025-05-18', 'Fué amable y la carta vino en buen estado', 5),
+(3, 19, 1, '2025-05-18', 'Fue bueno', 4),
+(4, 3, 1, '2025-05-18', 'malo', 1),
+(5, 19, 1, '2025-05-21', 'la carta venia en mal estado', 2),
+(6, 12, 1, '2025-05-21', 'no se presento al final', 1),
+(7, 7, 1, '2025-05-21', 'Me intento regatear con un precio que no acordamos', 2),
+(8, 20, 1, '2025-06-02', 'este vendedor me ha estafado, no comprarle', 2),
+(9, 7, 1, '2025-06-02', 'ghfghfghfgh', 1);
 
 -- --------------------------------------------------------
 
@@ -5411,11 +5405,10 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
 --
 
 DROP TABLE IF EXISTS `habilidades`;
-CREATE TABLE IF NOT EXISTS `habilidades` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `habilidad` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `habilidades` (
+  `id` int(11) NOT NULL,
+  `habilidad` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `habilidades`
@@ -5441,15 +5434,48 @@ INSERT INTO `habilidades` (`id`, `habilidad`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `mensajes`
+--
+
+DROP TABLE IF EXISTS `mensajes`;
+CREATE TABLE `mensajes` (
+  `id` int(11) NOT NULL,
+  `id_emisor` int(11) NOT NULL,
+  `id_receptor` int(11) NOT NULL,
+  `mensaje` text NOT NULL,
+  `fecha_envio` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`id`, `id_emisor`, `id_receptor`, `mensaje`, `fecha_envio`) VALUES
+(1, 1, 20, 'Hola, me gustaria hablar contigo', '2025-05-20 19:38:15'),
+(2, 1, 20, 'Es sobre el precio de la carta', '2025-05-20 19:40:13'),
+(3, 1, 20, 'Hola?', '2025-05-20 19:41:08'),
+(4, 1, 20, 'prueba2', '2025-05-20 19:47:57'),
+(5, 1, 20, 'prueba3', '2025-05-20 19:52:57'),
+(6, 1, 20, 'prueba4', '2025-05-20 19:55:57'),
+(7, 1, 20, 'no se', '2025-05-20 19:58:12'),
+(8, 1, 20, 'gfdg', '2025-05-20 19:58:22'),
+(9, 1, 20, 'gfdggg', '2025-05-20 20:03:08'),
+(10, 1, 20, 'h', '2025-05-20 20:12:52'),
+(11, 20, 1, 'de acuerdo', '2025-05-21 12:45:35'),
+(12, 1, 20, 'donde nos vemos', '2025-05-21 13:17:39'),
+(13, 1, 20, 'hola', '2025-06-02 17:24:52');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tipo_carta`
 --
 
 DROP TABLE IF EXISTS `tipo_carta`;
-CREATE TABLE IF NOT EXISTS `tipo_carta` (
-  `id_habilidad` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(50) NOT NULL,
-  PRIMARY KEY (`id_habilidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `tipo_carta` (
+  `id_habilidad` int(11) NOT NULL,
+  `tipo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_carta`
@@ -5471,11 +5497,10 @@ INSERT INTO `tipo_carta` (`id_habilidad`, `tipo`) VALUES
 --
 
 DROP TABLE IF EXISTS `tipo_criatura`;
-CREATE TABLE IF NOT EXISTS `tipo_criatura` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo_criatura_nombre` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=244 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `tipo_criatura` (
+  `id` int(11) NOT NULL,
+  `tipo_criatura_nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_criatura`
@@ -5724,7 +5749,8 @@ INSERT INTO `tipo_criatura` (`id`, `tipo_criatura_nombre`) VALUES
 (240, 'Zángano'),
 (241, 'Zombie'),
 (242, 'Zorro'),
-(243, 'Zubera');
+(243, 'Zubera'),
+(260, '0');
 
 -- --------------------------------------------------------
 
@@ -5733,14 +5759,13 @@ INSERT INTO `tipo_criatura` (`id`, `tipo_criatura_nombre`) VALUES
 --
 
 DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `correo` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
-  `moderador` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `moderador` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -5775,18 +5800,173 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contraseña`, `moderador`) VA
 --
 
 DROP TABLE IF EXISTS `ventas`;
-CREATE TABLE IF NOT EXISTS `ventas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ventas` (
+  `id` int(11) NOT NULL,
   `id_vendedor` int(11) NOT NULL,
   `id_comprador` int(11) NOT NULL,
   `id_carta` int(11) NOT NULL,
   `fecha_compra` date NOT NULL,
-  `precio` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_vendedor` (`id_vendedor`),
-  KEY `id_comprador` (`id_comprador`),
-  KEY `id_carta` (`id_carta`)
+  `precio` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id`, `id_vendedor`, `id_comprador`, `id_carta`, `fecha_compra`, `precio`) VALUES
+(1, 3, 1, 2, '2025-05-12', 2.22),
+(2, 3, 1, 2, '2025-05-12', 2.22),
+(3, 2, 1, 1, '2025-05-12', 3.08),
+(4, 2, 1, 1, '2025-05-12', 3.08),
+(5, 20, 1, 1, '2025-05-12', 2.09),
+(6, 4, 1, 3, '2025-05-12', 2.51),
+(7, 5, 1, 3, '2025-05-12', 4.64),
+(8, 19, 1, 6, '2025-05-13', 2.86),
+(9, 19, 1, 124, '2025-05-13', 3.27),
+(10, 8, 1, 8, '2025-05-21', 2.62),
+(11, 12, 1, 8, '2025-05-21', 2.85),
+(12, 7, 1, 31, '2025-05-21', 2.63),
+(13, 3, 1, 2, '2025-06-02', 2.22);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `cartas`
+--
+ALTER TABLE `cartas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipo_carta` (`tipo_carta`);
+
+--
+-- Indices de la tabla `cartas_en_venta`
+--
+ALTER TABLE `cartas_en_venta`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_carta` (`id_carta`),
+  ADD KEY `id_vendedor` (`id_vendedor`);
+
+--
+-- Indices de la tabla `cartas_habilidades`
+--
+ALTER TABLE `cartas_habilidades`
+  ADD PRIMARY KEY (`id_carta`,`id_habilidad`),
+  ADD KEY `id_habilidad` (`id_habilidad`);
+
+--
+-- Indices de la tabla `cartas_tipos_criatura`
+--
+ALTER TABLE `cartas_tipos_criatura`
+  ADD PRIMARY KEY (`id_carta`,`id_tipo_criatura`),
+  ADD KEY `id_tipo_criatura` (`id_tipo_criatura`);
+
+--
+-- Indices de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_comentado` (`id_comentado`),
+  ADD KEY `id_comentador` (`id_comentador`);
+
+--
+-- Indices de la tabla `habilidades`
+--
+ALTER TABLE `habilidades`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_emisor` (`id_emisor`),
+  ADD KEY `id_receptor` (`id_receptor`);
+
+--
+-- Indices de la tabla `tipo_carta`
+--
+ALTER TABLE `tipo_carta`
+  ADD PRIMARY KEY (`id_habilidad`);
+
+--
+-- Indices de la tabla `tipo_criatura`
+--
+ALTER TABLE `tipo_criatura`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_vendedor` (`id_vendedor`),
+  ADD KEY `id_comprador` (`id_comprador`),
+  ADD KEY `id_carta` (`id_carta`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `cartas`
+--
+ALTER TABLE `cartas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
+
+--
+-- AUTO_INCREMENT de la tabla `cartas_en_venta`
+--
+ALTER TABLE `cartas_en_venta`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4849;
+
+--
+-- AUTO_INCREMENT de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `habilidades`
+--
+ALTER TABLE `habilidades`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_carta`
+--
+ALTER TABLE `tipo_carta`
+  MODIFY `id_habilidad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_criatura`
+--
+ALTER TABLE `tipo_criatura`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
@@ -5825,6 +6005,13 @@ ALTER TABLE `cartas_tipos_criatura`
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`id_comentado`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`id_comentador`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`id_emisor`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `mensajes_ibfk_2` FOREIGN KEY (`id_receptor`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `ventas`
