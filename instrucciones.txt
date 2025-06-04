@@ -1,6 +1,0 @@
-Inserte la base de datos a localhost/phpMyAdmin
-
-Todos los usuarios tienen la contraseña "1234"
-
-Hay cartas a la venta de las 100 primeras
-
